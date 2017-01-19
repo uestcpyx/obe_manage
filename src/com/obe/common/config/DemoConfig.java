@@ -34,7 +34,7 @@ public class DemoConfig extends JFinalConfig {
 	 * 配置路由
 	 */
 	public void configRoute(Routes me) {
-		me.add("/", IndexController.class, "/AdminLTE-master/pages");	// 第三个参数为该Controller的视图存放路径
+		me.add("/", IndexController.class, "/AdminLTE-master");	// 第三个参数为该Controller的视图存放路径
 		me.add("/auth", AuthController.class, "/AdminLTE-master");	
 		me.add("/program", ProgramController.class, "/AdminLTE-master/pages");
 	}

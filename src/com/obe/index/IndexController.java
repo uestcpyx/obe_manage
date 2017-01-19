@@ -8,12 +8,10 @@ import com.jfinal.core.Controller;
  */
 public class IndexController extends Controller {
 	public void index() {
-		render("test.html");
-		//render("login.html");
-		//渲染页面
+		render("login.html");
 	}
 	public void panel(){
-		render("index.html");
+		render("test.html");
 	}
 }
 

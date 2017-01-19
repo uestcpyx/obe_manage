@@ -16,7 +16,7 @@ import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 public class _MappingKit {
 
 	public static void mapping(ActiveRecordPlugin arp) {
-		//arp.addMapping("blog", "id", Blog.class);
+		arp.addMapping("users", "id", users.class);//增加查询索引值
 	}
 }
 
