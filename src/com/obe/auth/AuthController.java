@@ -61,7 +61,7 @@ public class AuthController extends Controller {
 	}
 	
 	/**
-	 * 监护站退出
+	 * 用户登出
 	 */
 	public void userLogout()
 	{

@@ -11,7 +11,7 @@ public class IndexController extends Controller {
 		render("login.html");
 	}
 	public void panel(){
-		render("test.html");
+		render("index.html");
 	}
 }
 
