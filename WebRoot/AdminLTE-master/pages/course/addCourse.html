@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>OBE课程管理网站</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="../AdminLTE-master/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../AdminLTE-master/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="../AdminLTE-master/dist/css/skins/_all-skins.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/iCheck/flat/blue.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/datatables/dataTables.bootstrap.css">
+  <!-- Date Picker -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/datepicker/datepicker3.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/daterangepicker/daterangepicker-bs3.css">
+  <!-- bootstrap wysihtml5 - text editor -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/select2/css/select2.min.css">
+
+
+  <!-- 弹窗效果css文件 -->
+  <link rel="stylesheet" href="../AdminLTE-master/dist/mycss/popover.css" media="all">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <script type="text/javascript">
+		function myfun()
+		{
+    		alert("未开放，请稍等。");
+		}
+  </script>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  <header class="main-header">
+    <!-- Logo -->
+    <a href="../panel" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>O</b>BE</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>Obe</b>Manage</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="../AdminLTE-master/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <span class="hidden-xs">${userInfo.userName}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header">
+                <img src="../AdminLTE-master/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                <p>
+                  ${userInfo.userName}
+                </p>
+              </li>
+              
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="../auth/profile" class="btn btn-default btn-flat">修改密码</a>
+                </div>
+                <div class="pull-right">
+                  <a href="../auth/userLogout" class="btn btn-default btn-flat">登出</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="../AdminLTE-master/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p>${userInfo.userName}</p>
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+      </div>
+      <!-- search form -->
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+      <!-- /.search form -->
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+	  
+      <ul class="sidebar-menu">
+        <li class="header">MAIN NAVIGATION</li>
+        <#if (userInfo.userType?number == 2)>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>教务科</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a class="J_menuItem" data-content="content-main" href="../jiaowuke/addUser"></i> 新建课程</a></li>
+            <li><a class="J_menuItem" data-content="content-main" href="../jiaowuke/showAllCourse"></i> 查看现有课程</a></li>
+          </ul>
+        </li>
+		<#elseif (userInfo.userType?number == 3)>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>课程组长</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+			<li><a href="../program/myCourse"><i class="fa fa-circle-o"></i> 我的大纲</a></li>
+			<li><a href="../teacher/lessonList"><i class="fa fa-circle-o"></i> 我的课程</a></li>
+          </ul>
+        </li>
+		<#elseif (userInfo.userType?number == 4)>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>教师</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="../teacher/lessonList"><i class="fa fa-circle-o"></i> 我的课程</a></li>
+          </ul>
+        </li>
+		<#elseif (userInfo.userType?number == 1)>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>教务科</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a class="J_menuItem" data-content="content-main" href="../jiaowuke/addUser"></i> 新建课程</a></li>
+            <li><a class="J_menuItem" data-content="content-main" href="../jiaowuke/showAllCourse"></i> 查看现有课程</a></li>
+          </ul>
+        </li>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>课程组长</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+			<li><a class="J_menuItem" data-content="content-main" href="../program/myCourse"><i class="fa fa-circle-o"></i> 我的大纲</a></li>
+          </ul>
+        </li>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>教师</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="../teacher/lessonList"><i class="fa fa-circle-o"></i> 我的课程</a></li>
+          </ul>
+        </li>
+		</#if>
+        <li class="header"></li>
+        
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+	<!-- Main content -->
+    <section class="content">
+		<form name= "form" method="post" action="addCourseController" id="addCourseForm" role="form" onsubmit= "return submitCheck()">
+			<div class="form-group">
+				<label for="name">课程代码：</label>
+				<div class="input-group">
+					<input type="text" name='teaching_program.code' id='code' class="form-control" placeholder="请输入代码">
+                    <span class="input-group-btn">
+						<button id ="listOldVersion" type="button" class="btn btn-danger">查询有无往年版本</button>
+                    </span>
+				</div>			
+			</div>
+			<div id ="content" class='form-group'>
+				
+			</div>
+			<div class="form-group">
+				<label for="name">课程名称：</label>
+				<input type="text" name='teaching_program.cn_name' id='cn_name' class="form-control" placeholder="请输入名称">
+			</div>
+			<div class="form-group">
+				<label for="name">所属课程组：</label>
+				<select name="teacher_select" class="form-control" style="width: 100%;">
+					<#list groupName as g>
+						<option value=${g.id}>${g.course_group_name}</option>
+					</#list>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="name">创建年份：</label>
+				<input type="text" name='teaching_program.year' id='teaching_program.year' class="form-control" >
+                <script>
+                  document.getElementById("teaching_program.year").value=new Date().getFullYear();
+                </script>
+			</div>
+			<div class="form-group">
+				<label for="name">状态</label>
+				<select name='teaching_program.status' id='status' class="form-control">
+					<option value='0'>编写中</option>		
+				</select>
+			</div>
+			<button type="submit" class="btn">提交</button>
+		 </form>
+    </section>
+	<!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 1.0.0
+    </div>
+  </footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 2.2.3 -->
+<script src="../AdminLTE-master/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Select2 -->
+<script src="../AdminLTE-master/plugins/select2/js/select2.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="../AdminLTE-master/dist/js/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.6 -->
+<script src="../AdminLTE-master/bootstrap/js/bootstrap.min.js"></script>
+<!-- Sparkline -->
+<script src="../AdminLTE-master/plugins/sparkline/jquery.sparkline.min.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="../AdminLTE-master/plugins/knob/jquery.knob.js"></script>
+<!-- datepicker -->
+<script src="../AdminLTE-master/plugins/datepicker/bootstrap-datepicker.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="../AdminLTE-master/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<!-- Slimscroll -->
+<script src="../AdminLTE-master/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="../AdminLTE-master/plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="../AdminLTE-master/dist/js/app.min.js"></script>
+<!-- jquery.form.js -->
+<script src="../AdminLTE-master/plugins/jquery.form.js"></script>
+
+<!-- 异步提交请求往年数据 -->
+<script>
+$('#listOldVersion').click(function(){
+	if($('#code').val()==""||$('#code').val()==null){
+		alert("请先输入课程代码"); return false;
+	}
+	
+	var myData ={"code": $('#code').val()};
+	var option ={
+		type: "get",
+		data: myData,
+		url: "../jiaowuke/checkOldVersion",
+		success: function(data){
+			if(data.intro!="" && data.intro !=null){
+				$("#content").html(
+					"<label>往年版本</label>"+
+					"<table id='version_table' class='table table-bordered table-striped'></table>"
+				);
+				$("#version_table").html(
+					"<thead>"+
+						"<tr>"+
+							"<th>课程名</th>"+
+							"<th>课程代码</th>"+
+							"<th>版本</th>"+
+							"<th>操作</th>"+
+						"</tr>"+
+					"</thead>"+
+					"<tbody id ='intro_list'>"+
+					"</tbody>"
+				);
+				$.each(data.intro, function(i, item){
+					$("#intro_list").append(
+						"<tr>"+
+							"<td>"+ item.cn_name +"</td>"+
+							"<td>"+ item.code +"</td>"+
+							"<td>"+ item.edition +"</td>"+
+							"<td><a href='../teacher/viewCourse?pId="+item.id+"' target ='_blank'>查看</a>&nbsp&nbsp&nbsp&nbsp<a onclick='return copyOldVersion("+item.id+","+item.edition+")'>复用</a></td>"+
+						"</tr>"
+					);
+				});
+				alert("success");		
+			}
+			else{
+				$("#content").html(
+					"<label>暂无往年版本供参考</label>"
+				);
+			}
+		},
+		
+		error: function (data, status, e)
+		{
+			alert("upload error");
+		}
+	};
+	
+	$(this).ajaxSubmit(option);
+});
+</script>
+
+<!-- 复用 -->
+<script type='text/javascript'>
+function copyOldVersion(a, b){
+	$("#content").html(
+		"<label>已选择复用"+b+"年份的版本</label>"+
+		"<input name='oldversionId' type='hidden' value='"+a+"'></input>"
+	);
+}
+</script>
+
+<!--submitCheck-->
+<script type="text/javascript">
+function submitCheck()
+{ 
+	if($("#code").val()==""||$("#code").val()==null)
+	{
+		alert("请输入课程代码");return false;
+	}
+	if($("#cn_name").val()==""||$("#cn_name").val()==null)
+	{
+		alert("请输入课程名称");return false;
+	}
+	return confirm("请确认您已填完所有信息。确定现在提交？");
+	
+}
+</script>
+
+</body>
+</html>

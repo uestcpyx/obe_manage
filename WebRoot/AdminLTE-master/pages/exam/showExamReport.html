@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>OBE课程管理网站</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="../AdminLTE-master/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../AdminLTE-master/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="../AdminLTE-master/dist/css/skins/_all-skins.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/iCheck/flat/blue.css">
+
+  <!-- Date Picker -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/datepicker/datepicker3.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/daterangepicker/daterangepicker-bs3.css">
+  <!-- bootstrap wysihtml5 - text editor -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/select2/css/select2.min.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <script type="text/javascript">
+		function myfun()
+		{
+    		alert("未开放，请稍等。");
+		}
+  </script>
+  <style type="text/css">
+	.mt10{
+		margin-top: 10px;
+	}
+	
+	.mr15{
+		margin-right: 15px;
+	}
+  </style>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  <header class="main-header">
+    <!-- Logo -->
+    <a href="../panel" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>O</b>BE</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>Obe</b>Manage</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="../AdminLTE-master/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <span class="hidden-xs">${userInfo.userName}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header">
+                <img src="../AdminLTE-master/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                <p>
+                  ${userInfo.userName}
+                </p>
+              </li>
+             
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="../auth/profile" class="btn btn-default btn-flat">修改密码</a>
+                </div>
+                <div class="pull-right">
+                  <a href="../auth/userLogout" class="btn btn-default btn-flat">登出</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="../AdminLTE-master/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p>${userInfo.userName}</p>
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+      </div>
+      <!-- search form -->
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+      <!-- /.search form -->
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+	  
+      <ul class="sidebar-menu">
+        <li class="header">MAIN NAVIGATION</li>
+        <#if (userInfo.userType?number == 2)>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>教务科</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a class="J_menuItem" data-content="content-main" href="../jiaowuke/addUser"></i> 新建课程</a></li>
+            <li><a class="J_menuItem" data-content="content-main" href="../jiaowuke/showAllCourse"></i> 查看现有课程</a></li>
+          </ul>
+        </li>
+		<#elseif (userInfo.userType?number == 3)>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>课程组长</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+			<li><a href="../program/myCourse"><i class="fa fa-circle-o"></i> 我的大纲</a></li>
+			<li><a href="../teacher/lessonList"><i class="fa fa-circle-o"></i> 我的课程</a></li>
+          </ul>
+        </li>
+		<#elseif (userInfo.userType?number == 4)>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>教师</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="../teacher/lessonList"><i class="fa fa-circle-o"></i> 我的课程</a></li>
+          </ul>
+        </li>
+		<#elseif (userInfo.userType?number == 1)>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>教务科</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a class="J_menuItem" data-content="content-main" href="../jiaowuke/addUser"></i> 新建课程</a></li>
+            <li><a class="J_menuItem" data-content="content-main" href="../jiaowuke/showAllCourse"></i> 查看现有课程</a></li>
+          </ul>
+        </li>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>课程组长</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+			<li><a class="J_menuItem" data-content="content-main" href="../program/myCourse"><i class="fa fa-circle-o"></i> 我的大纲</a></li>
+          </ul>
+        </li>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>教师</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="../teacher/lessonList"><i class="fa fa-circle-o"></i> 我的课程</a></li>
+          </ul>
+        </li>
+		</#if>
+        <li class="header"></li>
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+	<div class="content-wrapper"> 
+		<section class="content">
+			<div class="nav-tabs-custom">
+				<ul class="nav nav-tabs">
+				  <li id ="li1"><a href="setExamInformation?pId=${pId}">填写考核信息</a></li>
+				  <li id ="li2"><a href="setExcelShow?pId=${pId}">上传学生成绩</a></li>
+				  <li id ="li3" class="active"><a href="showExamReport?pId=${pId}">查看试卷分析报告</a></li>
+				  <li class="pull-right header"><i class="fa fa-th"></i> 填写试卷分析报告</li>
+				</ul>
+				
+				<div id="content" class="tab-content">
+				<div class="box box-primary">
+					<div class="box-header with-border">
+					  <h1 class="box-title">${basicInformation.cn_name}</h1>
+					  <small class="pull-right">Date: ${basicInformation.create_date}</small>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body no-padding">
+					  <div class="mailbox-read-message">
+						<h3 align="center">《${basicInformation.cn_name}》试卷分析报告</h3>
+						<p><b>课程类别：</b>${basicInformation.course_type}</p>
+						<div class = "row">
+							<div class="col-md-4">
+								<p><b>学 分：</b>${basicInformation.credit}</p>
+							</div>
+							<div class="col-md-4">
+								<p><b>学 时：</b>${basicInformation.hours}</p>
+							</div>
+							<div class="col-md-4">
+								<p><b>双 语：</b>否</p>
+							</div>
+						</div>
+						<p><b>是否多媒体教学：</b>是</p>
+						<p><b>考试形式：</b>开卷</p>
+						<p><b>成绩构成：</b>实验：40分 期末：60分</p>
+						<p><b>试题来源：</b>任课教师自命题</p>
+						
+						<p><b>成绩分布情况：</b></p>
+						<h4>1、卷面成绩分数段分布</h4>
+						<div class="box">
+							<div class="box-body no-padding">
+							  <table class="table table-condensed">
+								<tr>
+								  <th>90以上</th>
+								  <th>80－89</th>
+								  <th>70－79</th>
+								  <th>60－69</th>
+								  <th>60以下</th>
+								</tr>
+								<tr>
+								  <td>${basicInformation.final90}%</td>
+								  <td>${basicInformation.final80}%</td>
+								  <td>${basicInformation.final70}%</td>
+								  <td>${basicInformation.final60}%</td>
+								  <td>${basicInformation.final00}%</td>
+								</tr>
+								
+							 </table>
+							</div>
+							<!-- /.box-body -->
+						</div>
+						<h4>2、总体成绩分数段分布</h4>
+						<div class="box">
+							<div class="box-body no-padding">
+							  <table class="table table-condensed">
+								<tr>
+								  <th>90以上</th>
+								  <th>80－89</th>
+								  <th>70－79</th>
+								  <th>60－69</th>
+								  <th>60以下</th>
+								</tr>
+								<tr>
+								  <td>${basicInformation.all90}%</td>
+								  <td>${basicInformation.all80}%</td>
+								  <td>${basicInformation.all70}%</td>
+								  <td>${basicInformation.all60}%</td>
+								  <td>${basicInformation.all00}%</td>
+								</tr>
+								
+							 </table>
+							</div>
+							<!-- /.box-body -->
+						</div>
+						<#list eList as e>
+							<#if (e.eType?number == 1)>
+								<p><b>期末考试评价表</b></p>
+								<div class='box-body' id ='KAOSHI_box'>
+									<table class="table table-condensed">
+										<tr>
+										  <th>课程目标</th>
+										  <th>权重系数</th>
+										  <th>学习成果</th>
+										  <th>考核点</th>
+										  <th>考核方式</th>
+										  <th>预期值</th>
+										  <th>达到值</th>
+										  <th>学习目标达成度</th>
+										</tr>
+										<#list exam_question as eq>
+											<#if eq.evaluate_type_id == 1>
+												<tr>
+												  <td>CO${eq.co}</td>
+												  <td>${eq.weight}</td>
+												  <td>
+													<#list eq.cm as cm>
+													  CM${cm.cm_order}&nbsp&nbsp
+													</#list>
+												  </td>
+												  <td>第${eq.level1}大题第${eq.level2}小题</td>
+												  <td>百分制</td>
+												  <td>${eq.expect}</td>
+												  <td>${eq.achievementNum}</td>
+												  <td>${eq.achievementDegree}</td>
+												</tr>
+											</#if>
+										</#list>
+									</table>
+								</div>
+							<#elseif (e.eType?number == 2)>
+								<p><b>学生考察评价表</b></p>
+								<div class='box-body' id ='KAOSHI_box'>
+									<table class="table table-condensed">
+										<tr>
+										  <th>课程目标</th>
+										  <th>权重系数</th>
+										  <th>学习成果</th>
+										  <th>考核点</th>
+										  <th>考核方式</th>
+										  <th>预期值</th>
+										  <th>达到值</th>
+										  <th>学习目标达成度</th>
+										</tr>
+										<#list exam_question as eq>
+											<#if eq.evaluate_type_id == 2>
+												<tr>
+												  <td>CO${eq.co}</td>
+												  <td>${eq.weight}</td>
+												  <td>
+													<#list eq.cm as cm>
+													  CM${cm.cm_order}&nbsp&nbsp
+													</#list>
+												  </td>
+												  <td>模块${eq.level1}</td>
+												  <td>百分制</td>
+												  <td>${eq.expect}</td>
+												  <td>${eq.achievementNum}</td>
+												  <td>${eq.achievementDegree}</td>
+												</tr>
+											</#if>
+										</#list>
+									</table>
+								</div>
+							<#elseif (e.eType?number == 3)>
+								<p><b>作业评价表</b></p>
+								<div class='box-body' id ='KAOSHI_box'>
+									<table class="table table-condensed">
+										<tr>
+										  <th>课程目标</th>
+										  <th>权重系数</th>
+										  <th>学习成果</th>
+										  <th>考核点</th>
+										  <th>考核方式</th>
+										  <th>预期值</th>
+										  <th>达到值</th>
+										  <th>学习目标达成度</th>
+										</tr>
+										<#list exam_question as eq>
+											<#if eq.evaluate_type_id == 3>
+												<tr>
+												  <td>CO${eq.co}</td>
+												  <td>${eq.weight}</td>
+												  <td>
+													<#list eq.cm as cm>
+													  CM${cm.cm_order}&nbsp&nbsp
+													</#list>
+												  </td>
+												  <td>模块${eq.level1}</td>
+												  <td>百分制</td>
+												  <td>${eq.expect}</td>
+												  <td>${eq.achievementNum}</td>
+												  <td>${eq.achievementDegree}</td>
+												</tr>
+											</#if>
+										</#list>
+									</table>
+								</div>
+							<#elseif (e.eType?number == 4)>
+								<p><b>课程实验评价表</b></p>
+								<div class='box-body' id ='KAOSHI_box'>
+									<table class="table table-condensed">
+										<tr>
+										  <th>课程目标</th>
+										  <th>权重系数</th>
+										  <th>学习成果</th>
+										  <th>考核点</th>
+										  <th>考核方式</th>
+										  <th>预期值</th>
+										  <th>达到值</th>
+										  <th>学习目标达成度</th>
+										</tr>
+										<#list exam_question as eq>
+											<#if eq.evaluate_type_id == 4>
+												<tr>
+												  <td>CO${eq.co}</td>
+												  <td>${eq.weight}</td>
+												  <td>
+													<#list eq.cm as cm>
+													  CM${cm.cm_order}&nbsp&nbsp
+													</#list>
+												  </td>
+												  <td>模块${eq.level1}</td>
+												  <td>百分制</td>
+												  <td>${eq.expect}</td>
+												  <td>${eq.achievementNum}</td>
+												  <td>${eq.achievementDegree}</td>
+												</tr>
+											</#if>
+										</#list>
+									</table>
+								</div>
+							<#elseif (e.eType?number == 5)>
+								<p><b>其他考核方式评价表</b></p>
+								<div class='box-body' id ='KAOSHI_box'>
+									<table class="table table-condensed">
+										<tr>
+										  <th>课程目标</th>
+										  <th>权重系数</th>
+										  <th>学习成果</th>
+										  <th>考核点</th>
+										  <th>考核方式</th>
+										  <th>预期值</th>
+										  <th>达到值</th>
+										  <th>学习目标达成度</th>
+										</tr>
+										<#list exam_question as eq>
+											<#if eq.evaluate_type_id == 5>
+												<tr>
+												  <td>CO${eq.co}</td>
+												  <td>${eq.weight}</td>
+												  <td>
+													<#list eq.cm as cm>
+													  CM${cm.cm_order}&nbsp&nbsp
+													</#list>
+												  </td>
+												  <td>模块${eq.level1}</td>
+												  <td>百分制</td>
+												  <td>${eq.expect}</td>
+												  <td>${eq.achievementNum}</td>
+												  <td>${eq.achievementDegree}</td>
+												</tr>
+											</#if>
+										</#list>
+									</table>
+								</div>
+							</#if>
+						</#list>
+						<p><b>课程达成度评价</b></p>
+						<div class='box-body' id ='KAOSHI_box'>
+							<table class="table table-condensed">
+								<tr>
+								  <th>课程目标</th>
+								  <th>考核方式</th>
+								  <th>考核标准</th>
+								  <th>权重系数</th>
+								  <th>考核模块</th>
+								  <th>达成度</th>
+								</tr>
+								<#list co_intro as co>
+									<tr>
+									  <td>CO${co.co_order}</td>
+									  <td>
+										<#list co.eType as coE>
+										    <#if coE.evaluate_type_id == 1>
+												考试&nbsp&nbsp
+										    <#elseif coE.evaluate_type_id == 2>
+												考查&nbsp&nbsp	
+											<#elseif coE.evaluate_type_id == 3>
+												作业&nbsp&nbsp	
+											<#elseif coE.evaluate_type_id == 4>
+												实验&nbsp&nbsp	
+											<#elseif coE.evaluate_type_id == 5>
+												其他&nbsp&nbsp	
+											</#if>
+										</#list>
+									  </td>
+									  <td>百分制</td>
+									  <td>${co.weight}</td>
+									  <td>
+										<#list co.cmList as cm>
+											CM${cm.cm_order}&nbsp&nbsp
+										</#list>
+									  </td>
+									  <td>${co.coAchieve}</td>
+									</tr>
+								</#list>
+							</table>
+							<p>课程达成度：0.718</p>
+						</div>
+						
+						<p><b>指标点达成度评价</b></p>
+						<div class='box-body' id ='KAOSHI_box'>
+							<table class="table table-condensed">
+								<tr>
+								  <th>指标点</th>
+								  <th>考核方式</th>
+								  <th>权重系数</th>
+								  <th>预期值</th>
+								  <th>达到值</th>
+								  <th>指标点达成值</th>
+								</tr>
+								<#list gr_intro as gr>
+									<tr>
+									  <td>GR${gr.level1}.${gr.level2}</td>
+									  <td>
+										<#list gr.grscore as grE>
+										    <#if grE.eType == 1>
+												考试&nbsp&nbsp
+										    <#elseif grE.eType == 2>
+												考查&nbsp&nbsp	
+											<#elseif grE.eType == 3>
+												作业&nbsp&nbsp	
+											<#elseif grE.eType == 4>
+												实验&nbsp&nbsp	
+											<#elseif grE.eType == 5>
+												其他&nbsp&nbsp	
+											</#if>
+										</#list>
+									  </td>
+									  <td>${gr.weight}</td>
+									  <td>
+										<#list gr.grscore as grE>
+										    <#if grE.eType == 1>
+												考试: ${grE.expect}&nbsp&nbsp
+										    <#elseif grE.eType == 2>
+												考查: ${grE.expect}&nbsp&nbsp	
+											<#elseif grE.eType == 3>
+												作业: ${grE.expect}&nbsp&nbsp	
+											<#elseif grE.eType == 4>
+												实验: ${grE.expect}&nbsp&nbsp	
+											<#elseif grE.eType == 5>
+												其他: ${grE.expect}&nbsp&nbsp	
+											</#if>
+										</#list>
+									  </td>
+									  <td>
+										<#list gr.grscore as grE>
+										    <#if grE.eType == 1>
+												考试: ${grE.achieve}&nbsp&nbsp
+										    <#elseif grE.eType == 2>
+												考查: ${grE.achieve}&nbsp&nbsp	
+											<#elseif grE.eType == 3>
+												作业: ${grE.achieve}&nbsp&nbsp	
+											<#elseif grE.eType == 4>
+												实验: ${grE.achieve}&nbsp&nbsp	
+											<#elseif grE.eType == 5>
+												其他: ${grE.achieve}&nbsp&nbsp	
+											</#if>
+										</#list>
+									  </td>
+									  <td>${gr.grAchieve}</td>
+									</tr>
+								</#list>
+							</table>
+						</div>
+					  </div>
+					  <!-- /.mailbox-read-message -->						
+					</div>
+					<!-- /.box-body -->
+
+					<div class="box-footer">
+						<form id ="ExamInfo" action ="../exam/postReport" method ="post" enctype="multipart/form-data"> 
+							<div class="form-group">
+								
+								<!--<button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">-->
+									<!--<i class="fa fa-download"></i> 生成word文档-->
+								<!--</button>-->
+							</div>
+						</form>
+					</div>
+					<!-- /.box-footer -->
+			    </div>
+			    <!-- /. box -->
+				</div>
+				<!-- /.tab-content -->
+			</div>
+			<!-- nav-tabs-custom -->
+		</section>
+	</div>
+	<!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 1.0.0
+    </div>
+  </footer>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 2.2.3 -->
+<script src="../AdminLTE-master/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Select2 -->
+<script src="../AdminLTE-master/plugins/select2/js/select2.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="../AdminLTE-master/dist/js/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.6 -->
+<script src="../AdminLTE-master/bootstrap/js/bootstrap.min.js"></script>
+<!-- Sparkline -->
+<script src="../AdminLTE-master/plugins/sparkline/jquery.sparkline.min.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="../AdminLTE-master/plugins/knob/jquery.knob.js"></script>
+<!-- datepicker -->
+<script src="../AdminLTE-master/plugins/datepicker/bootstrap-datepicker.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="../AdminLTE-master/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<!-- Slimscroll -->
+<script src="../AdminLTE-master/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="../AdminLTE-master/plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="../AdminLTE-master/dist/js/app.min.js"></script>
+<!-- md5 -->
+<script src="../AdminLTE-master/dist/tools/md5.js"></script>
+<!-- jquery.form.js -->
+<script src="../AdminLTE-master/plugins/jquery.form.js"></script>
+
+
+</body>
+</html>

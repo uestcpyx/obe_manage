@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>OBE课程管理网站</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="../AdminLTE-master/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../AdminLTE-master/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="../AdminLTE-master/dist/css/skins/_all-skins.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/iCheck/flat/blue.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/datatables/dataTables.bootstrap.css">
+  <!-- Date Picker -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/datepicker/datepicker3.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/daterangepicker/daterangepicker-bs3.css">
+  <!-- bootstrap wysihtml5 - text editor -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/select2/css/select2.min.css">
+
+  <!-- 弹窗效果css文件 -->
+  <link rel="stylesheet" href="../AdminLTE-master/dist/mycss/popover.css" media="all">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <script type="text/javascript">
+		function myfun()
+		{
+    		alert("未开放，请稍等。");
+		}
+  </script>
+  <style type="text/css">
+	.mt10{
+		margin-top: 10px;
+	}
+	
+	.mr15{
+		margin-right: 15px;
+	}
+  </style>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  <header class="main-header">
+    <!-- Logo -->
+    <a href="../panel" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>O</b>BE</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>Obe</b>Manage</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="../AdminLTE-master/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <span class="hidden-xs">${userInfo.userName}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header">
+                <img src="../AdminLTE-master/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                <p>
+                  ${userInfo.userName}
+                </p>
+              </li>
+              
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="../auth/profile" class="btn btn-default btn-flat">修改密码</a>
+                </div>
+                <div class="pull-right">
+                  <a href="../auth/userLogout" class="btn btn-default btn-flat">登出</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="../AdminLTE-master/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p>${userInfo.userName}</p>
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+      </div>
+      <!-- search form -->
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+      <!-- /.search form -->
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+	  
+      <ul class="sidebar-menu">
+        <li class="header">MAIN NAVIGATION</li>
+        <#if (userInfo.userType?number == 2)>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>教务科</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a class="J_menuItem" data-content="content-main" href="../jiaowuke/addUser"></i> 新建课程</a></li>
+            <li><a class="J_menuItem" data-content="content-main" href="../jiaowuke/showAllCourse"></i> 查看现有课程</a></li>
+          </ul>
+        </li>
+		<#elseif (userInfo.userType?number == 3)>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>课程组长</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+			<li><a href="../program/myCourse"><i class="fa fa-circle-o"></i> 我的大纲</a></li>
+			<li><a href="../teacher/lessonList"><i class="fa fa-circle-o"></i> 我的课程</a></li>
+          </ul>
+        </li>
+		<#elseif (userInfo.userType?number == 4)>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>教师</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="../teacher/lessonList"><i class="fa fa-circle-o"></i> 我的课程</a></li>
+          </ul>
+        </li>
+		<#elseif (userInfo.userType?number == 1)>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>教务科</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a class="J_menuItem" data-content="content-main" href="../jiaowuke/addUser"></i> 新建课程</a></li>
+            <li><a class="J_menuItem" data-content="content-main" href="../jiaowuke/showAllCourse"></i> 查看现有课程</a></li>
+          </ul>
+        </li>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>课程组长</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+			<li><a class="J_menuItem" data-content="content-main" href="../program/myCourse"><i class="fa fa-circle-o"></i> 我的大纲</a></li>
+          </ul>
+        </li>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>教师</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+             <li><a href="../teacher/lessonList"><i class="fa fa-circle-o"></i> 我的课程</a></li>
+          </ul>
+        </li>
+		</#if>
+        <li class="header"></li>
+        
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+	<!-- Main content -->
+    <section class="content">		
+		<!-- Custom Tabs (Pulled to the right) -->
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+			  <li id ="li1"><a href="getTeachers?pId=${pId}">课程组设置</a></li>
+              <li id ="li2"><a href="setBasicInformation?pId=${pId}">基本课程信息</a></li>
+              <li id ="li3"><a href="getCOandCM?pId=${pId}">co与cm设置关联</a></li>
+			  <li id ="li4" class="active"><a href="getEvaluate?pId=${pId}">达成度评价设置</a></li>
+			  <li class="pull-right header"><i class="fa fa-th"></i> 完善课程信息</li>
+            </ul>
+			
+			<div id="content" class="tab-content">
+				<form action='postEvaluate' role='form' method='post'>
+					<input type="hidden" id="pId" name="pId" value="${pId}">
+					<div class='box box-default'>
+						<div class='box-header with-border'>
+							<i class='ion ion-clipboard'></i>
+							<h3 class='box-title'>课程达成度评价</h3>
+							<button id ='addCOreach' type='button' class='btn btn-primary pull-right'><i class ='fa fa-fw fa-plus'></i>丨添加达成度评价方式</button>
+						</div>
+						<div class='box-body' id ='COreach_list'>
+							<div class ='row'>
+								<div class ='col-md-2 form-group'>
+									<label for="CReach">课程目标</label>
+								</div>
+								<div class ='col-md-2 form-group'>
+									<label for="CeType">考核方式</label>
+								</div>
+								<div class ='col-md-2 form-group'>
+									<label for="CsType">考核标准</label>
+								</div>
+								<div class ='col-md-2 form-group'>
+									<label for="CeModel">考核模块</label>
+								</div>
+								<div class='col-md-3 form-group'>
+									<div class ='col-md-6 form-group'>
+										<label for="CWeight">权重系数</label>
+									</div>
+									<div class ='col-md-6 form-group'>
+										<label for="CrWeight">达成度系数</label>
+									</div>
+								</div>
+								<div class='col-md-1' align='pull-left'>
+									<label for="CDel">删除</label>
+								</div>									
+							</div>
+							<#if cRList??>
+								<input type='hidden' name='Cr_num' id='Cr_num' value='${cRList_num}' />
+								<#list cRList as cr>
+									<div id ='Crow${cr_index+1}' class ='row'>
+										<div class ='col-md-2 form-group'>
+											<select name ='CReach' onchange = 'cchange($(this).parent().parent().attr(&quot;id&quot;))' class='form-control CReach check' style='width: 100%; height: 100%;'>
+												<option value='0' disabled selected style='display:none;'>【课程目标】</option>
+												<#list coList as c>
+													<option value='${c.co_order}'
+														<#if cr.teaching_program_co_order==c.co_order>
+															selected
+														</#if>
+													>CO${c.co_order}：${c.co_name}</option>
+												</#list>
+											</select>
+										</div>
+										<div class ='col-md-2 form-group'>
+											<select name ='CeType' class='form-control check' style='width: 100%; height: 100%;'>
+												<option value= '0' disabled selected style='display:none;'>【考核方式】</option>
+												<#list eList as e>
+													<option value='${e.id}'
+														<#if cr.evaluate_type_id==e.id>
+															selected
+														</#if>
+													>${e.id}：${e.type}</option>
+												</#list>
+											</select>
+										</div>
+										<div class ='col-md-2 form-group'>
+											<select name ='CsType' class='form-control check' style='width: 100%; height: 100%;'>
+												<option value= '0' disabled selected style='display:none;'>【考核标准】</option>
+												<option value='1'
+													<#if cr.score_type_id==1>
+														selected
+													</#if>
+												>百分制</option>
+											</select>
+										</div>
+										<div class ='col-md-2 form-group'>
+											<select name ='CeModel${cr_index+1}' multiple='multiple' class='form-control CeModel check' style='width: 100%; height: 34px;'>
+												<#list co_cmList as cm>
+													<option value='${cm.cm_order}'
+														<#list co_cm_List as cms>
+															<#if cms.rel_co_evaluate_id == cr.id && cms.teaching_program_cm_order == cm.cm_order>
+																selected
+															</#if>
+														</#list>
+													>CM${cm.cm_order}：${cm.cm_name}</option>
+												</#list>
+											</select>
+										</div>
+										<div class='col-md-3 form-group'>
+											<div class ='col-md-6 form-group'>
+												<#if cr.weight??>
+													<input name ='CWeight' value ='${cr.weight}' type ='text' class='form-control CWeight check' placeholder='【权重系数】' onkeyup='this.value=this.value.replace(/[^0-9\.]/g,&quot;&quot;)'>
+												<#else>
+													<input name ='CWeight' type ='text' class='form-control CWeight check' placeholder='【权重系数】' onkeyup='this.value=this.value.replace(/[^0-9\.]/g,&quot;&quot;)'>
+												</#if>
+											</div>
+											<div class ='col-md-6 form-group'>
+												<#if cr.reach_weight??>
+													<input name ='CrWeight' value ='${cr.reach_weight}' type ='text' class='form-control CrWeight check' placeholder='【达成度系数】' onkeyup='this.value=this.value.replace(/[^0-9\.]/g,&quot;&quot;)'>
+												<#else>
+													<input name ='CrWeight' type ='text' class='form-control CrWeight check' placeholder='【达成度系数】' onkeyup='this.value=this.value.replace(/[^0-9\.]/g,&quot;&quot;)'>
+												</#if>
+											</div>
+										</div>							
+										<div class='col-md-1' align='pull-left'>
+											<button id ='CDel${cr_index+1}' value ='${cr_index+1}' type='button' class='btn btn-default CDel'><i class='fa fa-trash-o'></i> Delete</button>
+										</div>
+									</div>
+								</#list>
+							<#else>
+								<input type='hidden' name='Cr_num' id='Cr_num' value='' />
+							</#if>					
+						</div>
+						<div class='box-footer'>
+							
+						</div>
+					</div>
+					<div class='box box-default'>
+						<div class='box-header with-border'>
+							<i class='ion ion-clipboard'></i>
+							<h3 class='box-title'>指标点达成度评价</h3>
+							<button id ='addGRreach' type='button' class='btn btn-primary pull-right'><i class ='fa fa-fw fa-plus'></i>丨添加达成度评价方式</button>
+						</div>
+						<div class='box-body' id ='GRreach_list'>
+							<div class ='row'>
+								<div class ='col-md-2 form-group'>
+									<label for="GReach">指标点</label>
+								</div>
+								<div class ='col-md-2 form-group'>
+									<label for="GeType">考核方式</label>
+								</div>
+								<div class ='col-md-2 form-group'>
+									<label for="GeModel">考核模块（多选）</label>
+								</div>
+								<div class ='col-md-2 form-group'>
+									<label for="GWeight">权重系数</label>
+								</div>
+								<div class ='col-md-2 form-group'>
+									<label for="GrWeight">达成度系数</label>
+								</div>
+								<div class='col-md-2' align='pull-left'>
+									<label for="GDel">删除</label>
+								</div>
+							</div>
+							<#if gList??>
+								<input type='hidden' name='Gr_num' id='Gr_num' value='${gList_num}' />
+								<#list gList as g>
+									<div id ='Grow${g_index+1}' class ='row'>
+										<div class ='col-md-2 form-group'>
+											<select name ='GReach' onchange = 'gchange($(this).parent().parent().attr(&quot;id&quot;))' class='form-control GReach check' style='width: 100%; height:100%;'>
+												<option value='0' disabled selected style='display:none;'>【指标点】</option>
+												<#list grList as gr>
+													<option value='${gr.id}'
+														<#if g.gr_id == gr.id>
+															selected
+														</#if>
+													>GR${gr.level1}.${gr.level2}：${gr.content}</option>
+												</#list>
+											</select>
+										</div>
+										<div class ='col-md-2 form-group'>
+											<select name ='GeType' class='form-control check' style='width: 100%; height: 100%;'>
+												<option value='0' disabled selected style='display:none;'>【考核方式】</option>
+												<#list eList as e>
+													<option value='${e.id}'
+														<#if g.evaluate_type_id==e.id>
+															selected
+														</#if>
+													>${e.id}：${e.type}</option>
+												</#list>
+											</select>
+										</div>
+										<div class ='col-md-2 form-group'>
+											<select name ='GeModel${g_index+1}' multiple='multiple' class='form-control GeModel check' style='width: 100%; height: 34px;'>
+												<#list co_cmList as cm>
+													<option value='${cm.cm_order}'
+														<#list gr_cm_List as grs>
+															<#if grs.rel_gr_evaluate_id == g.id && grs.teaching_program_cm_order == cm.cm_order>
+																selected
+															</#if>
+														</#list>
+													>CM${cm.cm_order}：${cm.cm_name}</option>
+												</#list>
+											</select>
+										</div>
+										<div class ='col-md-2 form-group'>
+											<#if g.weight??>
+												<input name ='GWeight' value ='${g.weight}' class='form-control GWeight check' onkeyup='this.value=this.value.replace(/[^0-9\.]/g,&quot;&quot;)' type ='text' placeholder='【权重系数】'>
+											<#else>
+												<input name ='GWeight' class='form-control GWeight check' onkeyup='this.value=this.value.replace(/[^0-9\.]/g,&quot;&quot;)' type ='text' placeholder='【权重系数】'>
+											</#if>
+										</div>
+										<div class ='col-md-2 form-group'>
+											<#if g.reach_weight??>
+												<input name ='GrWeight' value ='${g.reach_weight}' class='form-control GrWeight check' onkeyup='this.value=this.value.replace(/[^0-9\.]/g,&quot;&quot;)' type ='text' placeholder='【达成度系数】'>
+											<#else>
+												<input name ='GrWeight' class='form-control GrWeight check' onkeyup='this.value=this.value.replace(/[^0-9\.]/g,&quot;&quot;)' type ='text' placeholder='【达成度系数】'>
+											</#if>
+										</div>
+										<div class='col-md-2' align='pull-left'>
+											<button id ='GDel${g_index+1}' value ='${g_index+1}' type='button' class='btn btn-default GDel'><i class='fa fa-trash-o'></i> Delete</button>
+										</div>
+									</div>
+								</#list>
+							<#else>
+								<input type='hidden' name='Gr_num' id='Gr_num' value='' />
+							</#if>
+							
+						</div>
+						<div class='box-footer'>
+							
+						</div>
+					</div>
+					<div class='box box-default'>
+						<div class='box-header with-border'>
+							<i class='ion ion-clipboard'></i>
+							<h3 class='box-title'>参考资料</h3>
+						</div>
+						<div class='box-body' id ='COreach_list'>
+							<div class ='row'>
+								<ul>
+									<li><a href ='reference?id=1' target ='_blank'>1.各课程与毕业要求的对应关系  矩阵(2016.1.14)</a></li>
+									<li><a href ='reference?id=2' target ='_blank'>2.毕业要求指标点与高关联课程的支撑关系及权重</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class='box-footer'>
+							<#if userInfo.userType?number == 3>								
+								<div class ="text-center mt10">
+									<button name ="submit" onclick ="return submitCheck(0)" value="save" type="submit" class="btn btn-primary btn-lg mr15" >保存</button>
+									<button name ="submit" onclick ="return submitCheck(1)" value="submit" type="submit" class="btn btn-danger btn-lg mr15">提交审核</button>
+								</div>
+							<#else>
+								<div class ="text-center mt10">
+									<button name ="submit" onclick ="return submitCheck(0)" value="save" type="submit" class="btn btn-primary btn-lg mr15" >保存</button>
+									<button name ="submit" onclick ="return submitCheck(1)" value="submit_2" type="submit" class="btn btn-danger btn-lg mr15">提交给课程组长</button>
+								</div>
+							</#if>
+						</div>
+					</div>
+				</form>
+			</div>
+            <!-- /.tab-content -->
+          </div>
+          <!-- nav-tabs-custom -->
+
+    </section>
+	<!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+		<b>Version</b> 1.0.0
+    </div>
+  </footer>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 2.2.3 -->
+<script src="../AdminLTE-master/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Select2 -->
+<script src="../AdminLTE-master/plugins/select2/js/select2.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="../AdminLTE-master/dist/js/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.6 -->
+<script src="../AdminLTE-master/bootstrap/js/bootstrap.min.js"></script>
+<!-- Sparkline -->
+<script src="../AdminLTE-master/plugins/sparkline/jquery.sparkline.min.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="../AdminLTE-master/plugins/knob/jquery.knob.js"></script>
+<!-- datepicker -->
+<script src="../AdminLTE-master/plugins/datepicker/bootstrap-datepicker.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="../AdminLTE-master/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<!-- Slimscroll -->
+<script src="../AdminLTE-master/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="../AdminLTE-master/plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="../AdminLTE-master/dist/js/app.min.js"></script>
+
+<!-- Page Script -->
+<script>
+var CArr = new Array(); 
+var GArr = new Array();
+for(var i=0;i<20;i++){
+	CArr[i]=0;
+	GArr[i]=0;
+}
+
+$(function(){
+	var c =0; //CO
+	var g =0; //GR
+	
+	if($("#Cr_num").val()!=""){
+		c=$("#Cr_num").val();
+		for(var i=0; i<c; i++){
+			CArr[i] = 1;
+			
+			//删除
+			$("#CDel"+(i+1)).click(function(){
+				var b = $(this).val(); //获取该行数			
+				CArr[b-1]=0;
+				if(CArr[b]!=0){
+					for(var j=b-1; j<$("#Cr_num").val(); j++){
+						CArr[j]=CArr[j+1];
+						$("#Crow"+(j+2)).find('.CDel').val(j+1);
+						$("#Crow"+(j+2)).find('.CeModel').attr("name", "CeModel"+(j+1));
+						$("#Crow"+(j+2)).attr("id","Crow"+(j+1));
+						$("#CDel"+(j+2)).attr("id","CDel"+(j+1));
+					}
+					c--;
+					$("#Cr_num").val(c);
+				}
+				$(this).parent().parent().remove();
+			});
+			
+			$(".CeModel").select2({
+				editable: false,
+				placeholder: "    【考核模块】"
+			});
+		}
+	}
+	else{
+		$("#Cr_num").val(c);
+	}
+	
+	if($("#Gr_num").val()!=""){
+		g=$("#Gr_num").val();
+		for(var i=0; i<g; i++){
+			GArr[i] = 1;
+			
+			//删除
+			$("#GDel"+(i+1)).click(function(){
+				var b = $(this).val(); //获取该行数			
+				GArr[b-1]=0;
+				if(GArr[b]!=0){
+					for(var j=b-1; j<$("#Gr_num").val(); j++){
+						GArr[j]=GArr[j+1];
+						$("#Grow"+(j+2)).find('.GDel').val(j+1);
+						$("#Grow"+(j+2)).find('.GeModel').attr("name", "GeModel"+(j+1));
+						$("#Grow"+(j+2)).attr("id","Grow"+(j+1));
+						$("#GDel"+(j+2)).attr("id","GDel"+(j+1));
+					}
+					g--;
+					$("#Gr_num").val(g);
+				}
+				$(this).parent().parent().remove();
+			});
+			
+			$(".GeModel").select2({
+				editable: false,
+				placeholder: "    【考核模块】"
+			});
+		}
+	}
+	else{
+		$("#Gr_num").val(g);
+	}
+	
+	//课程目标达成度
+	$("#addCOreach").click(function(){
+		CArr[c]=1;
+		c++;
+		$("#Cr_num").val(c);
+		$("#COreach_list").append(
+			"<div id ='Crow" +c +"' class ='row'>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<select name ='CReach' onchange = 'cchange($(this).parent().parent().attr(&quot;id&quot;))' class='form-control CReach check' style='width: 100%; height: 100%;'>"+
+						"<option value='0' disabled selected style='display:none;'>【课程目标】</option>"+
+						"<#list coList as c>"+
+							"<option value='${c.co_order}'>CO${c.co_order}：${c.co_name}</option>"+
+						"</#list>"+
+					"</select>"+
+				"</div>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<select name ='CeType' class='form-control check' style='width: 100%; height: 100%;'>"+
+						"<option value= '0' disabled selected style='display:none;'>【考核方式】</option>"+
+						"<#list eList as e>"+
+							"<option value='${e.id}'>${e.id}：${e.type}</option>"+
+						"</#list>"+
+					"</select>"+
+				"</div>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<select name ='CsType' class='form-control check' style='width: 100%; height: 100%;'>"+
+						"<option value= '0' disabled selected style='display:none;'>【考核标准】</option>"+
+						"<option value='1'>百分制</option>"+
+					"</select>"+
+				"</div>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<select name ='CeModel" +c +"' multiple='multiple' class='form-control CeModel check' style='width: 100%; height: 34px;'>"+
+						"<#list co_cmList as cm>"+
+							"<option value='${cm.cm_order}'>CM${cm.cm_order}：${cm.cm_name}</option>"+
+						"</#list>"+
+					"</select>"+
+				"</div>"+
+				"<div class='col-md-3 form-group'>"+
+					"<div class ='col-md-6 form-group'>"+
+						"<input name ='CWeight' type ='text' class='form-control CWeight check' placeholder='【权重系数】' onkeyup='this.value=this.value.replace(/[^0-9\.]/g,&quot;&quot;)'>"+
+					"</div>"+
+					"<div class ='col-md-6 form-group'>"+
+						"<input name ='CrWeight' type ='text' class='form-control CrWeight check' placeholder='【达成度系数】' onkeyup='this.value=this.value.replace(/[^0-9\.]/g,&quot;&quot;)'>"+
+					"</div>"+
+				"</div>"+								
+				"<div class='col-md-1' align='pull-left'>"+
+					"<button id ='CDel" +c +"' value ='" +c +"' type='button' class='btn btn-default CDel'><i class='fa fa-trash-o'></i> Delete</button>"+
+				"</div>"+
+			"</div>"
+		);
+			
+		$("#CDel"+c).click(function(){
+			var b = $(this).val(); //获取该行数			
+			CArr[b-1]=0;
+			if(CArr[b]!=0){
+				for(var i=b-1; i<$("#Cr_num").val(); i++){
+					CArr[i]=CArr[i+1];
+					$("#Crow"+(i+2)).find('.CDel').val(i+1);
+					$("#Crow"+(i+2)).find('.CeModel').attr("name", "CeModel"+(i+1));
+					$("#Crow"+(i+2)).attr("id","Crow"+(i+1));
+					$("#CDel"+(i+2)).attr("id","CDel"+(i+1));
+				}
+				c--;
+				$("#Cr_num").val(c);
+			}
+			$(this).parent().parent().remove();
+		});
+		
+		$(".CeModel").select2({
+			editable: false,
+			placeholder: "    【考核模块】"
+		});
+
+	});
+	
+	$("#addGRreach").click(function(){
+		GArr[g]=1;
+		g++;
+		$("#Gr_num").val(g);
+		$("#GRreach_list").append(
+			"<div id ='Grow" +g +"' class ='row'>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<select name ='GReach' onchange = 'gchange($(this).parent().parent().attr(&quot;id&quot;))' class='form-control GReach check' style='width: 100%; height:100%;'>"+
+						"<option value='0' disabled selected style='display:none;'>【指标点】</option>"+
+						"<#list grList as gr>"+
+							"<option value='${gr.id}'>GR${gr.level1}.${gr.level2}：${gr.content}</option>"+
+						"</#list>"+
+					"</select>"+
+				"</div>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<select name ='GeType' class='form-control check' style='width: 100%; height: 100%;'>"+
+						"<option value='0' disabled selected style='display:none;'>【考核方式】</option>"+
+						"<#list eList as e>"+
+							"<option value='${e.id}'>${e.id}：${e.type}</option>"+
+						"</#list>"+
+					"</select>"+
+				"</div>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<select name ='GeModel" +g +"' multiple='multiple' class='form-control GeModel check' style='width: 100%; height: 34px;'>"+
+						"<#list co_cmList as cm>"+
+							"<option value='${cm.cm_order}'>CM${cm.cm_order}：${cm.cm_name}</option>"+
+						"</#list>"+
+					"</select>"+
+				"</div>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<input name ='GWeight' class='form-control GWeight check' onkeyup='this.value=this.value.replace(/[^0-9\.]/g,&quot;&quot;)' type ='text' placeholder='【权重系数】'>"+
+				"</div>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<input name ='GrWeight' class='form-control GrWeight check' onkeyup='this.value=this.value.replace(/[^0-9\.]/g,&quot;&quot;)' type ='text' placeholder='【达成度系数】'>"+
+				"</div>"+
+				"<div class='col-md-2' align='pull-left'>"+
+					"<button id ='GDel" +g +"' value ='" +g +"' type='button' class='btn btn-default GDel'><i class='fa fa-trash-o'></i> Delete</button>"+
+				"</div>"+
+			"</div>"
+		);
+			
+		$("#GDel"+g).click(function(){
+			$(this).parent().parent().remove();
+			var b = $(this).val(); //获取该行数
+			GArr[b-1]=0;
+			if(GArr[b]!=0){
+				for(var i=b-1; i<$("#Gr_num").val(); i++){
+					GArr[i]=GArr[i+1];
+					$("#GDel"+(i+2)).val(i+1);
+					$("#Grow"+(i+2)).find('.GeModel').attr("name", "GeModel"+(i+1));
+					$("#Grow"+(i+2)).attr("id","Grow"+(i+1));
+					$("#GDel"+(i+2)).attr("id","GDel"+(i+1));
+				}
+			}
+			g--;
+			$("#Gr_num").val(g);
+		});
+		
+		$(".GeModel").select2({
+			editable: false,
+			placeholder: "    【考核模块】"
+		});
+	});
+
+	
+});
+
+function cchange(x){
+	$(".CReach").each(function(){
+		if($(this).val()==$("#"+x).find(".CReach").val() && $(this).parent().parent().find(".CWeight").val()!=""){
+			$("#"+x).find(".CWeight").val($(this).parent().parent().find(".CWeight").val());
+			return false; //break
+		}
+	});
+}
+
+function gchange(x){
+	$(".GReach").each(function(){
+		if($(this).val()==$("#"+x).find(".GReach").val() && $(this).parent().parent().find(".GWeight").val()!=""){
+			$("#"+x).find(".GWeight").val($(this).parent().parent().find(".GWeight").val());
+			return false; //break
+		}
+	});
+}
+</script>
+<!-- Submit Check -->
+<script>
+function submitCheck(v){
+//判空
+	if($("#Cr_num").val()=="" || $("#Cr_num").val()==0){
+		alert("请至少添加一项课程目标达成度评价项"); return false;
+	}
+	if($("#Gr_num").val()=="" || $("#Gr_num").val()==0){
+		alert("请至少添加一项指标点达成度评价项"); return false;
+	}
+	var status =1;
+	$(".check").each(function(){
+		if($(this).val()==""||$(this).val()==null){
+			status =0;
+		}
+	});
+	if(status!=1){
+		alert("您有关键项未填选，请再次检查！"); return false;
+	}
+	
+//判误
+	//判断权重系数
+	var Cweight =0;
+	var Gweight =0;
+
+	var CArr = new Array();
+	var GArr = new Array();
+	for(var i=0; i<$("#Cr_num").val();i++){
+		CArr[i] =0;
+	}
+	for(var i=0; i<$("#Gr_num").val();i++){
+		GArr[i] =0;
+	}
+
+	//CWeight
+	for(var i =0;i<$("#Cr_num").val();i++){
+		if(CArr[i]!=1){
+			$(".CReach").each(function(j){
+				if($(this).val()==$(".CReach:eq("+i+")").val()){
+					if($(this).parent().parent().find(".CWeight").val()!=$(".CWeight:eq("+i+")").val()){
+						status =0;
+					}
+					else{
+						CArr[j]=1;
+					}
+				}
+			});
+			Cweight = Cweight+Number($(".CWeight:eq("+i+")").val());
+		}
+	}
+	if(status!=1){
+		alert("相同课程目标权重值必须一致，请检查！"); return false;
+	}
+	
+	//GWeight
+	for(var i =0;i<$("#Gr_num").val();i++){
+		if(GArr[i]!=1){
+			$(".GReach").each(function(j){
+				if($(this).val()==$(".GReach:eq("+i+")").val()){
+					if($(this).parent().parent().find(".GWeight").val()!=$(".GWeight:eq("+i+")").val()){
+						status =0;
+					}
+					else{
+						GArr[j]=1;
+					}
+				}
+			});
+			Gweight = Gweight+Number($(".GWeight:eq("+i+")").val());
+		}
+	}
+	if(status!=1){
+		alert("相同指标点权重值必须一致，请检查！"); return false;
+	}
+	
+	if(Cweight.toFixed(2)!=1.00){
+		alert("课程目标权重系数分配有误，请重新填写！"); return false;
+	}
+	
+	//判断达成度系数
+	for(var i=0; i<$("#Cr_num").val(); i++){
+		var Cr_weight =0;
+		var svalue = $(".CReach:eq("+i+")").val();
+		for(var j=0; j<$("#Cr_num").val(); j++){
+			if(svalue==$(".CReach:eq("+j+")").val()){
+				Cr_weight = Cr_weight + Number($(".CReach:eq("+j+")").parent().parent().find(".CrWeight").val());
+			}
+		}
+		if(Cr_weight.toFixed(2)!=1.00){
+			status = 0;
+		}
+	}
+	for(var i=0; i<$("#Gr_num").val(); i++){
+		var Gr_weight =0;
+		var svalue = $(".GReach:eq("+i+")").val();
+		for(var j=0; j<$("#Gr_num").val(); j++){
+			if(svalue==$(".GReach:eq("+j+")").val()){
+				Gr_weight = Gr_weight + Number($(".GReach:eq("+j+")").parent().parent().find(".GrWeight").val());
+			}
+		}
+		if(Gr_weight.toFixed(2)!=1.00){
+			status = 0;
+		}
+	}
+	if(status!=1){
+		alert("达成度权重系数填写有误，请重新检查！"); return false;
+	}
+	
+	if(v==0){
+		return confirm("请再次确认信息填写无误");
+	}
+	else{
+		return confirm("提价审核后将无法修改！确定现在提交？");
+	}
+}
+
+</script>
+</body>
+</html>

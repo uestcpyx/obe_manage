@@ -2,7 +2,9 @@ package com.obe.common.tools;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Random;
@@ -19,6 +21,34 @@ import org.json.JSONObject;
  
 
 public class tools {
+	/**
+	 * md5加密
+	 * @param str
+	 * @return
+	 */
+	public static String md5Encode(String str) {  
+        MessageDigest messageDigest = null;  
+        try {  
+            messageDigest = MessageDigest.getInstance("MD5");  
+            messageDigest.reset();  
+            messageDigest.update(str.getBytes("UTF-8"));  
+        } catch (NoSuchAlgorithmException e) {  
+            System.out.println("NoSuchAlgorithmException caught!");  
+            System.exit(-1);  
+        } catch (UnsupportedEncodingException e) {  
+            e.printStackTrace();  
+        }  
+        byte[] byteArray = messageDigest.digest();  
+        StringBuffer md5StrBuff = new StringBuffer();  
+        for (int i = 0; i < byteArray.length; i++) {  
+            if (Integer.toHexString(0xFF & byteArray[i]).length() == 1)  
+                md5StrBuff.append("0").append(Integer.toHexString(0xFF & byteArray[i]));  
+            else  
+                md5StrBuff.append(Integer.toHexString(0xFF & byteArray[i]));  
+        }  
+        return md5StrBuff.toString();  
+    }
+	
 	/**
 	 *  返回执行结果（用于仅返回一个 Json 字段的情况）
 	 * @param code
@@ -60,7 +90,7 @@ public class tools {
 	  */
 	 public static String ConvertTimeLongToString(long timeLong)
 	 {
-		 String vv = "" + timeLong;
+		String vv = "" + timeLong;
 		long time = Long.valueOf(vv);
 		 TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
 			Calendar c = Calendar.getInstance();
@@ -77,7 +107,7 @@ public class tools {
 		 TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
 			Calendar c = Calendar.getInstance();
 			c.setTimeInMillis(time);
-			SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String s = dateformat.format(c.getTime());
 		 return s.substring(0,19);
 	}

@@ -56,11 +56,7 @@
         </div>
       </div>
     </form>
-
-   
-    <!-- /.social-auth-links -->
-
-    <a href="#">忘记密码</a><br>
+	<a href="./findPwd">忘记密码</a>
 
   </div>
   <!-- /.login-box-body -->
@@ -80,16 +76,15 @@
 <!-- global -->
 <script src="AdminLTE-master/dist/tools/global.js"></script>
 <script>
-  $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' // optional
-    });
-  });
+$(function () {
+$('input').iCheck({
+  checkboxClass: 'icheckbox_square-blue',
+  radioClass: 'iradio_square-blue',
+  increaseArea: '20%' // optional
+});
+});
   
-function dologin()
-{
+function dologin(){
 	
 	 var loginName=$('#loginName').val();
 	 var password=$('#password').val();
@@ -110,7 +105,7 @@ function dologin()
 	 	      }else
 	 	    	  {
 					//失败
-					alert('s');
+					alert('密码错误');
 	 	    	  }
 	 	    	
 	 	     },  

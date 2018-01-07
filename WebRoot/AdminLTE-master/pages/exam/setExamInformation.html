@@ -1,0 +1,1177 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>OBE课程管理网站</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="../AdminLTE-master/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../AdminLTE-master/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="../AdminLTE-master/dist/css/skins/_all-skins.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/iCheck/flat/blue.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/datatables/dataTables.bootstrap.css">
+  <!-- Date Picker -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/datepicker/datepicker3.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/daterangepicker/daterangepicker-bs3.css">
+  <!-- bootstrap wysihtml5 - text editor -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/select2/css/select2.min.css">
+
+  <!-- 弹窗效果css文件 -->
+  <link rel="stylesheet" href="../AdminLTE-master/dist/mycss/popover.css" media="all">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <script type="text/javascript">
+	function myfun()
+	{
+		alert("未开放，请稍等。");
+	}
+  </script>
+  <style type="text/css">
+	.mt10{
+		margin-top: 10px;
+	}
+	
+	.mr15{
+		margin-right: 15px;
+	}
+  </style>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  <header class="main-header">
+    <!-- Logo -->
+    <a href="../panel" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>O</b>BE</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>Obe</b>Manage</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="../AdminLTE-master/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <span class="hidden-xs">${userInfo.userName}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header">
+                <img src="../AdminLTE-master/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                <p>
+                  ${userInfo.userName}
+                </p>
+              </li>
+             
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="../auth/profile" class="btn btn-default btn-flat">修改密码</a>
+                </div>
+                <div class="pull-right">
+                  <a href="../auth/userLogout" class="btn btn-default btn-flat">登出</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="../AdminLTE-master/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p>${userInfo.userName}</p>
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+      </div>
+      <!-- search form -->
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+      <!-- /.search form -->
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+	  
+      <ul class="sidebar-menu">
+        <li class="header">MAIN NAVIGATION</li>
+        <#if (userInfo.userType?number == 2)>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>教务科</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a class="J_menuItem" data-content="content-main" href="../jiaowuke/addUser"></i> 新建课程</a></li>
+            <li><a class="J_menuItem" data-content="content-main" href="../jiaowuke/showAllCourse"></i> 查看现有课程</a></li>
+          </ul>
+        </li>
+		<#elseif (userInfo.userType?number == 3)>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>课程组长</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+			<li><a href="../program/myCourse"><i class="fa fa-circle-o"></i> 我的大纲</a></li>
+			<li><a href="../teacher/lessonList"><i class="fa fa-circle-o"></i> 我的课程</a></li>
+		  </ul>
+        </li>
+		<#elseif (userInfo.userType?number == 4)>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>教师</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="../teacher/lessonList"><i class="fa fa-circle-o"></i> 我的课程</a></li>
+          </ul>
+        </li>
+		<#elseif (userInfo.userType?number == 1)>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>教务科</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a class="J_menuItem" data-content="content-main" href="../jiaowuke/addUser"></i> 新建课程</a></li>
+            <li><a class="J_menuItem" data-content="content-main" href="../jiaowuke/showAllCourse"></i> 查看现有课程</a></li>
+          </ul>
+        </li>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>课程组长</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+			<li><a class="J_menuItem" data-content="content-main" href="../program/myCourse"><i class="fa fa-circle-o"></i> 我的大纲</a></li>
+		  </ul>
+        </li>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>教师</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="../teacher/lessonList"><i class="fa fa-circle-o"></i> 我的课程</a></li>
+          </ul>
+        </li>
+		</#if>
+        <li class="header"></li>
+      
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+	<!-- Content Wrapper. Contains page content -->
+	<div class="content-wrapper">
+	<!-- Main content -->
+    <section class="content">
+		<!-- Custom Tabs (Pulled to the right) -->
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+				<li id ="li1" class="active"><a href="setExamInformation?pId=${pId}">填写考核信息</a></li>
+				<li id ="li2"><a href="setExcelShow?pId=${pId}">上传学生成绩</a></li>
+				<li id ="li3"><a href="showExamReport?pId=${pId}">查看试卷分析报告</a></li>
+				<li class="pull-right header"><i class="fa fa-th"></i> 填写试卷分析报告</li>
+            </ul>
+	
+			<div id="content" class="tab-content">
+				<form action='postExamInformation' role='form' method='post'>
+				<input type="hidden" id="pId" name="pId" value="${pId}">
+				<#list eList as e>
+					<#if (e.eType?number == 1)>
+					<div class='box box-default'>
+						<div class='box-header with-border'>
+							<i class='ion ion-clipboard'></i>
+							<h3 class='box-title'>完成试题与课程目标对应</h3>
+							<button id ='addKSreach' type='button' class='btn btn-primary pull-right'><i class ='fa fa-fw fa-plus'></i>丨添加试题</button>
+						</div>
+						<div class='box-body' id ='KSreach_list'>
+							<div class ='row'>
+								<div class ='col-md-2 form-group'>
+									<label for="kaoshi_level1">考核点对应大题（请填入阿拉伯数字）</label>
+								</div>
+								<div class ='col-md-2 form-group'>
+									<label for="kaoshi_level2">大题所属小题（如无小题请默认填1）</label>
+								</div>
+								<div class ='col-md-2 form-group'>
+									<label for="kaoshi_cm_select">学习成果</label>
+								</div>
+								<div class='col-md-3 form-group'>
+									<div class ='col-md-6 form-group'>
+										<label for="kaoshi_CWeight">权重系数</label>
+									</div>
+									<div class ='col-md-6 form-group'>
+										<label for="kaoshi_expect">预期值</label>
+									</div>
+								</div>
+								<div class='col-md-1' align='pull-left'>
+									<label for="CDel">删除</label>
+								</div>									
+							</div>
+							<input type='hidden' name='KAOSHI_num' id='KAOSHI_num' value='${ksnum}' />
+							<#if qList ??>
+								<#list qList as q>
+									<#if (q.evaluate_type_id?number == 1)>
+									<div id ='Crow${q.row}' class ='row'>
+										<div class ='col-md-2 form-group'>
+										<#if q.level1??>
+											<input id ='kaoshi_level1' name ='kaoshi_level1' type='text' class='form-control check' placeholder='大题题号' value = '${q.level1}'>
+										<#else>
+											<input id ='kaoshi_level1' name ='kaoshi_level1' type='text' class='form-control check' placeholder='大题题号' >
+										</#if>
+										</div>
+										<div class ='col-md-2 form-group'>
+										<#if q.level2??>
+											<input id ='kaoshi_level2' name ='kaoshi_level2' type='text' class='form-control check' placeholder='小题题号' value = '${q.level2}'>
+										<#else>
+											<input id ='kaoshi_level2' name ='kaoshi_level2' type='text' class='form-control check' placeholder='小题题号'>
+										</#if>
+										</div>
+										<div class ='col-md-2 form-group'>
+											<select name ='kaoshi_cm_select${q.row}' multiple='multiple' class='form-control FinalExamAdd check' style='width: 100%; height: 34px;'>
+												<#list cmList as cm>
+													<option value='${cm.cm_order}'
+													<#list q.cmList as cmq>
+														<#if cmq.cm_order == cm.cm_order>
+															selected
+														</#if>
+													</#list>
+													>${cm.cm_order}：${cm.cm_name}</option>
+												</#list>
+											</select>
+										</div>
+										<div class='col-md-3 form-group'>
+											<div class ='col-md-6 form-group'>
+											<#if q.weight??>
+												<input name ='kaoshi_CWeight' type ='text' class='form-control CWeight check' placeholder='【权重系数】' value = '${q.weight}'>
+											<#else>
+												<input name ='kaoshi_CWeight' type ='text' class='form-control CWeight check' placeholder='【权重系数】'>
+											</#if>
+											</div>
+											<div class ='col-md-6 form-group'>
+											<#if q.expect??>
+												<input id ='kaoshi_expect' name ='kaoshi_expect' type='text' class='form-control check' placeholder='Enter ...' value = '${q.expect}'>
+											<#else>
+												<input id ='kaoshi_expect' name ='kaoshi_expect' type='text' class='form-control check' placeholder='Enter ...'>
+											</#if>	
+											</div>
+										</div>							
+										<div class='col-md-1' align='pull-left'>
+											<button id ='CDel${q.row}' value ='${q.row}' type='button' class='btn btn-default CDel'><i class='fa fa-trash-o'></i> Delete</button>
+										</div>
+									</div>
+									
+									</#if>
+								</#list>
+							<#else>
+				
+							</#if>
+						</div>
+					</div>
+					<#elseif (e.eType?number == 4)>
+					<div class='box box-default'>
+						<div class='box-header with-border'>
+							<i class='ion ion-clipboard'></i>
+							<h3 class='box-title'>完成实验与课程目标对应</h3>
+							<button id ='addSYreach' type='button' class='btn btn-primary pull-right'><i class ='fa fa-fw fa-plus'></i>丨添加实验题目</button>
+						</div>
+						<div class='box-body' id ='SYreach_list'>
+							<div class ='row'>
+								<div class ='col-md-2 form-group'>
+									<label for="shiyan_level1">实验名称</label>
+								</div>
+								<div class ='col-md-2 form-group'>
+									<label for="shiyan_cm_select">学习成果</label>
+								</div>
+								<div class ='col-md-2 form-group'>
+									<label for="shiyan_CWeight">权重系数</label>
+								</div>
+								<div class ='col-md-2 form-group'>
+									<label for="shiyan_expect">预期值</label>
+								</div>
+								<div class='col-md-2' align='pull-left'>
+									<label for="GDel">删除</label>
+								</div>
+							</div>
+							<input type='hidden' name='SHIYAN_num' id='SHIYAN_num' value='${synum}' />
+							<#if qList ??>
+								<#list qList as q>
+									<#if (q.evaluate_type_id?number == 4)>
+									<div id ='Grow${q.row}' class ='row'>
+									    <#if q.level1??>
+											<input id ='shiyan_level1' name ='shiyan_level1' type='hidden' class='form-control check'  value = '${q.level1}'>
+										<#else>
+											<input id ='shiyan_level1' name ='shiyan_level1' type='hidden' class='form-control check'  value = '${q.row}'>
+										</#if>
+										<div class ='col-md-2 form-group'>
+										<#if q.intro??>
+											<input id ='shiyan_intro' name ='shiyan_intro' type='text' class='form-control check' placeholder='实验名称' value = '${q.intro}'>
+										<#else>
+											<input id ='shiyan_intro' name ='shiyan_intro' type='text' class='form-control check' placeholder='实验名称' >
+										</#if>
+										</div>
+										<div class ='col-md-2 form-group'>
+											<select name ='shiyan_cm_select${q.row}' multiple='multiple' class='form-control shiyan check' style='width: 100%; height: 34px;'>
+												<#list cmList as cm>
+													<option value='${cm.cm_order}'
+													<#list q.cmList as cmq>
+														<#if cmq.cm_order == cm.cm_order>
+															selected
+														</#if>
+													</#list>
+													>${cm.cm_order}：${cm.cm_name}</option>
+												</#list>
+											</select>
+										</div>
+										<div class ='col-md-2 form-group'>
+											<#if q.weight??>
+												<input name ='shiyan_CWeight' type ='text' class='form-control CWeight check' placeholder='【权重系数】' value = '${q.weight}'>
+											<#else>
+												<input name ='shiyan_CWeight' type ='text' class='form-control CWeight check' placeholder='【权重系数】'>
+											</#if>
+										</div>
+										<div class ='col-md-2 form-group'>
+											<#if q.expect??>
+												<input id ='shiyan_expect' name ='shiyan_expect' type='text' class='form-control check' placeholder='Enter ...' value = '${q.expect}'>
+											<#else>
+												<input id ='shiyan_expect' name ='shiyan_expect' type='text' class='form-control check' placeholder='Enter ...'>
+											</#if>	
+										</div>
+										<div class='col-md-2' align='pull-left'>
+											<button id ='GDel${q.row}' value ='${q.row}' type='button' class='btn btn-default GDel'><i class='fa fa-trash-o'></i> Delete</button>
+										</div>
+									</div>
+									</#if>
+								</#list>
+							<#else>
+							
+							</#if>
+						</div>
+				  </div>
+				  <#elseif (e.eType?number == 2)>
+				  <div class='box box-default'>
+						<div class='box-header with-border'>
+							<i class='ion ion-clipboard'></i>
+							<h3 class='box-title'>完成考察方式与课程目标对应</h3>
+							<button id ='addKCreach' type='button' class='btn btn-primary pull-right'><i class ='fa fa-fw fa-plus'></i>丨添加考察方式</button>
+						</div>
+						<div class='box-body' id ='KCreach_list'>
+							<div class ='row'>
+								<div class ='col-md-2 form-group'>
+									<label for="zuoye_level1">考查方式介绍</label>
+								</div>
+								<div class ='col-md-2 form-group'>
+									<label for="zuoye_cm_select">学习成果</label>
+								</div>
+								<div class ='col-md-2 form-group'>
+									<label for="zuoye_CWeight">权重系数</label>
+								</div>
+								<div class ='col-md-2 form-group'>
+									<label for="zuoye_expect">预期值</label>
+								</div>
+								<div class='col-md-2' align='pull-left'>
+									<label for="BDel">删除</label>
+								</div>
+							</div>
+							<input type='hidden' name='KAOCHA_num' id='KAOCHA_num' value='${kcnum}' />
+							<#if qList ??>
+								<#list qList as q>
+									<#if (q.evaluate_type_id?number == 2)>
+									<div id ='KCrow${q.row}' class ='row'>
+									    <#if q.level1??>
+											<input id ='kaocha_level1' name ='kaocha_level1' type='hidden' class='form-control check'  value = '${q.level1}'>
+										<#else>
+											<input id ='kaocha_level1' name ='kaocha_level1' type='hidden' class='form-control check' value = '${q.row}'>
+										</#if>
+										<div class ='col-md-2 form-group'>
+										<#if q.intro??>
+											<input id ='kaocha_intro' name ='kaocha_intro' type='text' class='form-control check' placeholder='考察名称' value = '${q.intro}'>
+										<#else>
+											<input id ='kaocha_intro' name ='kaocha_intro' type='text' class='form-control check' placeholder='考察名称' >
+										</#if>
+										</div>
+										<div class ='col-md-2 form-group'>
+											<select name ='kaocha_cm_select${q.row}' multiple='multiple' class='form-control KaoChaAdd check' style='width: 100%; height: 34px;'>
+												<#list cmList as cm>
+													<option value='${cm.cm_order}'
+													<#list q.cmList as cmq>
+														<#if cmq.cm_order == cm.cm_order>
+															selected
+														</#if>
+													</#list>
+													>${cm.cm_order}：${cm.cm_name}</option>
+												</#list>
+											</select>
+										</div>
+										<div class ='col-md-2 form-group'>
+											<#if q.weight??>
+												<input name ='kaocha_CWeight' type ='text' class='form-control CWeight check' placeholder='【权重系数】' value = '${q.weight}'>
+											<#else>
+												<input name ='kaocha_CWeight' type ='text' class='form-control CWeight check' placeholder='【权重系数】'>
+											</#if>
+										</div>
+										<div class ='col-md-2 form-group'>
+											<#if q.expect??>
+												<input id ='kaocha_expect' name ='kaocha_expect' type='text' class='form-control check' placeholder='Enter ...' value = '${q.expect}'>
+											<#else>
+												<input id ='kaocha_expect' name ='kaocha_expect' type='text' class='form-control check' placeholder='Enter ...'>
+											</#if>	
+										</div>							
+										<div class='col-md-2' align='pull-left'>
+											<button id ='BDel${q.row}' value ='${q.row}' type='button' class='btn btn-default BDel'><i class='fa fa-trash-o'></i> Delete</button>
+										</div>
+									</div>
+									</#if>
+								</#list>
+							<#else>
+							
+							</#if>
+						</div>
+					</div>
+					<#elseif (e.eType?number == 3)>
+					<div class='box box-default'>
+						<div class='box-header with-border'>
+							<i class='ion ion-clipboard'></i>
+							<h3 class='box-title'>完成作业与课程目标对应</h3>
+							<button id ='addZYreach' type='button' class='btn btn-primary pull-right'><i class ='fa fa-fw fa-plus'></i>丨添加作业</button>
+						</div>
+						<div class='box-body' id ='ZYreach_list'>
+							<div class ='row'>
+								<div class ='col-md-2 form-group'>
+									<label for="kaocha_level1">作业</label>
+								</div>
+								<div class ='col-md-2 form-group'>
+									<label for="kaocha_cm_select">学习成果</label>
+								</div>
+								<div class ='col-md-2 form-group'>
+									<label for="kaocha_CWeight">权重系数</label>
+								</div>
+								<div class ='col-md-2 form-group'>
+									<label for="kaocha_expect">预期值</label>
+								</div>
+								<div class='col-md-2' align='pull-left'>
+									<label for="ADel">删除</label>
+								</div>
+							</div>
+							<input type='hidden' name='ZUOYE_num' id='ZUOYE_num' value='${zynum}' />
+							<#if qList ??>
+								<#list qList as q>
+									<#if (q.evaluate_type_id?number == 3)>
+									<div id ='ZYrow${q.row}' class ='row'>
+									    <#if q.level1??>
+											<input id ='zuoye_level1' name ='zuoye_level1' type='hidden' class='form-control check' value = '${q.level1}'>
+										<#else>
+											<input id ='zuoye_level1' name ='zuoye_level1' type='hidden' class='form-control check' value = '${q.row}'>
+										</#if>
+										<div class ='col-md-2 form-group'>
+										<#if q.intro??>
+											<input id ='zuoye_intro' name ='zuoye_intro' type='text' class='form-control check' placeholder='作业' value = '${q.intro}'>
+										<#else>
+											<input id ='zuoye_intro' name ='zuoye_intro' type='text' class='form-control check' placeholder='作业' >
+										</#if>
+										</div>
+										<div class ='col-md-2 form-group'>
+											<select name ='zuoye_cm_select${q.row}' multiple='multiple' class='form-control ZuoYeAdd check' style='width: 100%; height: 34px;'>
+												<#list cmList as cm>
+													<option value='${cm.cm_order}'
+													<#list q.cmList as cmq>
+														<#if cmq.cm_order == cm.cm_order>
+															selected
+														</#if>
+													</#list>
+													>${cm.cm_order}：${cm.cm_name}</option>
+												</#list>
+											</select>
+										</div>
+										<div class ='col-md-2 form-group'>
+											<#if q.weight??>
+												<input name ='zuoye_CWeight' type ='text' class='form-control CWeight check' placeholder='【权重系数】' value = '${q.weight}'>
+											<#else>
+												<input name ='zuoye_CWeight' type ='text' class='form-control CWeight check' placeholder='【权重系数】'>
+											</#if>
+										</div>
+										<div class ='col-md-2 form-group'>
+											<#if q.expect??>
+												<input id ='zuoye_expect' name ='zuoye_expect' type='text' class='form-control check' placeholder='Enter ...' value = '${q.expect}'>
+											<#else>
+												<input id ='zuoye_expect' name ='zuoye_expect' type='text' class='form-control check' placeholder='Enter ...'>
+											</#if>	
+										</div>							
+										<div class='col-md-2' align='pull-left'>
+											<button id ='ADel${q.row}' value ='${q.row}' type='button' class='btn btn-default ADel'><i class='fa fa-trash-o'></i> Delete</button>
+										</div>
+									</div>
+									</#if>
+								</#list>
+							<#else>
+							
+							</#if>
+						</div>
+					</div>
+					<#elseif (e.eType?number == 5)>
+					<div class='box box-default'>
+						<div class='box-header with-border'>
+							<i class='ion ion-clipboard'></i>
+							<h3 class='box-title'>完成其他方式与课程目标对应</h3>
+							<button id ='addQTreach' type='button' class='btn btn-primary pull-right'><i class ='fa fa-fw fa-plus'></i>丨添加其他考察方式</button>
+						</div>
+						<div class='box-body' id ='QTreach_list'>
+							<div class ='row'>
+								<div class ='col-md-2 form-group'>
+									<label for="qita_level1">其他考察方式</label>
+								</div>
+								<div class ='col-md-2 form-group'>
+									<label for="qita_cm_select">学习成果</label>
+								</div>
+								<div class ='col-md-2 form-group'>
+									<label for="qita_CWeight">权重系数</label>
+								</div>
+								<div class ='col-md-2 form-group'>
+									<label for="qita_expect">预期值</label>
+								</div>
+								<div class='col-md-2' align='pull-left'>
+									<label for="DDel">删除</label>
+								</div>
+							</div>
+							<input type='hidden' name='QITA_num' id='QITA_num' value='${qtnum}' />
+							<#if qList ??>
+								<#list qList as q>
+									<#if (q.evaluate_type_id?number == 5)>
+									<div id ='QTrow${q.row}' class ='row'>
+									    <#if q.level1??>
+											<input id ='qita_level1' name ='qita_level1' type='hidden' class='form-control check' value = '${q.level1}'>
+										<#else>
+											<input id ='qita_level1' name ='qita_level1' type='hidden' class='form-control check' value = '${q.row}'>
+										</#if>
+										<div class ='col-md-2 form-group'>
+										<#if q.intro??>
+											<input id ='qita_intro' name ='qita_intro' type='text' class='form-control check' placeholder='其他考察方式' value = '${q.intro}'>
+										<#else>
+											<input id ='qita_intro' name ='qita_intro' type='text' class='form-control check' placeholder='其他考察方式' >
+										</#if>
+										</div>
+										<div class ='col-md-2 form-group'>
+											<select name ='qita_cm_select${q.row}' multiple='multiple' class='form-control QiTaAdd check' style='width: 100%; height: 34px;'>
+												<#list cmList as cm>
+													<option value='${cm.cm_order}'
+													<#list q.cmList as cmq>
+														<#if cmq.cm_order == cm.cm_order>
+															selected
+														</#if>
+													</#list>
+													>${cm.cm_order}：${cm.cm_name}</option>
+												</#list>
+											</select>
+										</div>
+										<div class ='col-md-2 form-group'>
+											<#if q.weight??>
+												<input name ='qita_CWeight' type ='text' class='form-control CWeight check' placeholder='【权重系数】' value = '${q.weight}'>
+											<#else>
+												<input name ='qita_CWeight' type ='text' class='form-control CWeight check' placeholder='【权重系数】'>
+											</#if>
+										</div>
+										<div class ='col-md-2 form-group'>
+											<#if q.expect??>
+												<input id ='qita_expect' name ='qita_expect' type='text' class='form-control check' placeholder='Enter ...' value = '${q.expect}'>
+											<#else>
+												<input id ='qita_expect' name ='qita_expect' type='text' class='form-control check' placeholder='Enter ...'>
+											</#if>	
+										</div>
+										<div class='col-md-2' align='pull-left'>
+											<button id ='DDel${q.row}' value ='${q.row}' type='button' class='btn btn-default DDel'><i class='fa fa-trash-o'></i> Delete</button>
+										</div>
+									</div>
+									</#if>
+								</#list>
+							<#else>
+							
+							</#if>
+						</div>
+					</div>
+					</#if>
+				</#list>
+					<div class='box-footer'>
+						<div align='center'>
+							<button name ="submit"  value ="save" type="submit" class="btn btn-block btn-primary btn-lg" style="width:200px;height:50px;">生成excel表格</button>
+						</div>
+					</div>
+				</form>
+			</div>
+            <!-- /.tab-content -->
+        </div>
+        <!-- nav-tabs-custom -->
+
+    </section>
+	<!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 1.0.0
+    </div>
+  </footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 2.2.3 -->
+<script src="../AdminLTE-master/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Select2 -->
+<script src="../AdminLTE-master/plugins/select2/js/select2.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="../AdminLTE-master/dist/js/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.6 -->
+<script src="../AdminLTE-master/bootstrap/js/bootstrap.min.js"></script>
+<!-- Sparkline -->
+<script src="../AdminLTE-master/plugins/sparkline/jquery.sparkline.min.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="../AdminLTE-master/plugins/knob/jquery.knob.js"></script>
+<!-- datepicker -->
+<script src="../AdminLTE-master/plugins/datepicker/bootstrap-datepicker.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="../AdminLTE-master/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<!-- Slimscroll -->
+<script src="../AdminLTE-master/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="../AdminLTE-master/plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="../AdminLTE-master/dist/js/app.min.js"></script>
+
+<!-- Page Script -->
+<script>
+var CArr = new Array(); 
+var GArr = new Array();
+var AArr = new Array();
+var BArr = new Array();
+var DArr = new Array();
+
+for(var i=0;i<20;i++){
+	CArr[i]=0;
+	GArr[i]=0;
+	AArr[i]=0;
+	BArr[i]=0;
+	DArr[i]=0;
+}
+
+$(function(){
+	var c =0; //考试
+	var g =0; //实验
+	var m =0; //作业
+	var n =0; //考察
+	var p =0; //其他
+	
+	
+	if($("#KAOSHI_num").val()!=""){
+		c=$("#KAOSHI_num").val();
+		for(var i=0; i<c; i++){
+			CArr[i] = 1;
+			
+			//删除
+			$("#CDel"+(i+1)).click(function(){
+				var b = $(this).val(); //获取该行数			
+				CArr[b-1]=0;
+				if(CArr[b]!=0){
+					for(var j=b-1; j<$("#KAOSHI_num").val(); j++){
+						CArr[j]=CArr[j+1];
+						$("#Crow"+(j+2)).find('.CDel').val(j+1);
+						$("#Crow"+(j+2)).find('.FinalExamAdd').attr("name", "kaoshi_cm_select"+(j+1));
+						$("#Crow"+(j+2)).attr("id","Crow"+(j+1));
+						$("#CDel"+(j+2)).attr("id","CDel"+(j+1));
+					}
+					c--;
+					$("#KAOSHI_num").val(c);
+				}
+				$(this).parent().parent().remove();
+				return false;
+			});
+			
+			$(".FinalExamAdd").select2({
+				editable: false,
+				placeholder: "    【考核模块】"
+		    });
+		}
+	}
+	else{
+		$("#KAOSHI_num").val(c);
+	}
+	
+	if($("#SHIYAN_num").val()!=""){
+		g=$("#SHIYAN_num").val();
+		for(var i=0; i<g; i++){
+			GArr[i] = 1;
+			
+			//删除
+			$("#GDel"+(i+1)).click(function(){
+			$(this).parent().parent().remove();
+			var b = $(this).val(); //获取该行数
+			GArr[b-1]=0;
+			if(GArr[b]!=0){
+				for(var i=b-1; i<$("#SHIYAN_num").val(); i++){
+					GArr[i]=GArr[i+1];
+					$("#GDel"+(i+2)).val(i+1);
+					$("#Grow"+(i+2)).find('.shiyan').attr("name", "shiyan_cm_select"+(i+1));
+					$("#Grow"+(i+2)).attr("id","Grow"+(i+1));
+					$("#GDel"+(i+2)).attr("id","GDel"+(i+1));
+				}
+			}
+			g--;
+			$("#SHIYAN_num").val(g);
+		});
+		
+		$(".shiyan").select2({
+			editable: false,
+			placeholder: "    【考核模块】"
+		});
+		}
+	}
+	else{
+		$("#SHIYAN_num").val(g);
+	}
+	
+	if($("#ZUOYE_num").val()!=""){
+		m=$("#ZUOYE_num").val();
+		for(var i=0; i<m; i++){
+			AArr[i] = 1;
+			
+			//删除
+			$("#ADel"+(i+1)).click(function(){
+			$(this).parent().parent().remove();
+			var b = $(this).val(); //获取该行数
+			AArr[b-1]=0;
+			if(AArr[b]!=0){
+				for(var i=b-1; i<$("#ZUOYE_num").val(); i++){
+					AArr[i]=AArr[i+1];
+					$("#ADel"+(i+2)).val(i+1);
+					$("#ZYrow"+(i+2)).find('.ZuoYeAdd').attr("name", "zuoye_cm_select"+(i+1));
+					$("#ZYrow"+(i+2)).attr("id","ZYrow"+(i+1));
+					$("#ADel"+(i+2)).attr("id","ADel"+(i+1));
+				}
+			}
+			m--;
+			$("#ZUOYE_num").val(m--);
+		});
+		
+		$(".ZuoYeAdd").select2({
+			editable: false,
+			placeholder: "    【考核模块】"
+		});
+		}
+	}
+	else{
+		$("#ZUOYE_num").val(m);
+	}
+	
+	if($("#KAOCHA_num").val()!=""){
+	    n=$("#KAOCHA_num").val();
+		for(var i=0; i<n; i++){
+			BArr[i] = 1;
+			
+			//删除
+			$("#BDel"+(i+1)).click(function(){
+			$(this).parent().parent().remove();
+			var b = $(this).val(); //获取该行数
+			BArr[b-1]=0;
+			if(BArr[b]!=0){
+				for(var i=b-1; i<$("#KAOCHA_num").val(); i++){
+					BArr[i]=BArr[i+1];
+					$("#BDel"+(i+2)).val(i+1);
+					$("#KCrow"+(i+2)).find('.KaoChaAdd').attr("name", "kaocha_cm_select"+(i+1));
+					$("#KCrow"+(i+2)).attr("id","KCrow"+(i+1));
+					$("#BDel"+(i+2)).attr("id","BDel"+(i+1));
+				}
+			}
+			n--;
+			$("#KAOCHA_num").val(n--);
+		});
+		
+		$(".KaoChaAdd").select2({
+			editable: false,
+			placeholder: "    【考核模块】"
+		});
+		}
+	}
+	else{
+		$("#KAOCHA_num").val(n);
+	}
+	
+	if($("#QITA_num").val()!=""){
+	    p=$("#QITA_num").val();
+		for(var i=0; i<p; i++){
+			CArr[i] = 1;
+			
+			//删除
+			$("#DDel"+(i+1)).click(function(){
+				$(this).parent().parent().remove();
+				var b = $(this).val(); //获取该行数
+				DArr[b-1]=0;
+				if(DArr[b]!=0){
+					for(var i=b-1; i<$("#QITA_num").val(); i++){
+						DArr[i]=DArr[i+1];
+						$("#DDel"+(i+2)).val(i+1);
+						$("#QTrow"+(i+2)).find('.QiTaAdd').attr("name", "qita_cm_select"+(i+1));
+						$("#QTrow"+(i+2)).attr("id","QTrow"+(i+1));
+						$("#DDel"+(i+2)).attr("id","DDel"+(i+1));
+					}
+				}
+				p--;
+				$("#QITA_num").val(p--);
+			});
+		
+			$(".QiTaAdd").select2({
+				editable: false,
+				placeholder: "    【考核模块】"
+			});
+		}
+	}
+	else{
+		$("#QITA_num").val(p);
+	}
+		
+	
+	//添加试题
+	$("#addKSreach").click(function(){
+		CArr[c]=1;
+		c++;
+		$("#KAOSHI_num").val(c);
+		$("#KSreach_list").append(
+			"<div id ='Crow" +c +"' class ='row'>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<input id ='kaoshi_level1' name ='kaoshi_level1' type='text' class='form-control' placeholder='大题题号'>"+
+				"</div>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<input id ='kaoshi_level2' name ='kaoshi_level2' type='text' class='form-control' placeholder='小题题号'>"+
+				"</div>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<select name ='kaoshi_cm_select" +c +"' multiple='multiple' class='form-control FinalExamAdd check' style='width: 100%; height: 34px;'>"+
+						"<#list cmList as cm>"+
+							"<option value='${cm.cm_order}'>${cm.cm_order}：${cm.cm_name}</option>"+
+						"</#list>"+
+					"</select>"+
+				"</div>"+
+				"<div class='col-md-3 form-group'>"+
+					"<div class ='col-md-6 form-group'>"+
+						"<input name ='kaoshi_CWeight' type ='text' class='form-control CWeight check' placeholder='【权重系数】' onkeyup='this.value=this.value.replace(/[^0-9\.]/g,&quot;&quot;)'>"+
+					"</div>"+
+					"<div class ='col-md-6 form-group'>"+
+					"<input id ='kaoshi_expect' name ='kaoshi_expect' type='text' class='form-control' placeholder='Enter ...'>"+
+					"</div>"+
+				"</div>"+								
+				"<div class='col-md-1' align='pull-left'>"+
+					"<button id ='CDel" +c +"' value ='" +c +"' type='button' class='btn btn-default CDel'><i class='fa fa-trash-o'></i> Delete</button>"+
+				"</div>"+
+			"</div>"
+		);
+			
+		$("#CDel"+c).click(function(){
+			var b = $(this).val(); //获取该行数			
+			CArr[b-1]=0;
+			if(CArr[b]!=0){
+				for(var i=b-1; i<$("#KAOSHI_num").val(); i++){
+					CArr[i]=CArr[i+1];
+					$("#Crow"+(i+2)).find('.CDel').val(i+1);
+					$("#Crow"+(i+2)).find('.FinalExamAdd').attr("name", "kaoshi_cm_select"+(i+1));
+					$("#Crow"+(i+2)).attr("id","Crow"+(i+1));
+					$("#CDel"+(i+2)).attr("id","CDel"+(i+1));
+				}
+				c--;
+				$("#KAOSHI_num").val(c);
+			}
+			$(this).parent().parent().remove();
+			return false;
+		});
+		
+		$(".FinalExamAdd").select2({
+			editable: false,
+			placeholder: "    【考核模块】"
+		});
+
+	});
+	
+	//添加实验
+	$("#addSYreach").click(function(){
+		GArr[g]=1;
+		g++;
+		$("#SHIYAN_num").val(g);
+		$("#SYreach_list").append(
+			"<div id ='Grow" +g +"' class ='row'>"+
+				"<input id ='shiyan_level1' name ='shiyan_level1' type='hidden' class='form-control' value='"+g+"'>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<input id ='shiyan_intro' name ='shiyan_intro' type='text' class='form-control' placeholder='实验名称'>"+
+				"</div>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<select name ='shiyan_cm_select" +g +"' multiple='multiple' class='form-control shiyan check' style='width: 100%; height: 34px;'>"+
+						"<#list cmList as cm>"+
+							"<option value='${cm.cm_order}'>${cm.cm_order}：${cm.cm_name}</option>"+
+						"</#list>"+
+					"</select>"+
+				"</div>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<input name ='shiyan_CWeight' type ='text' class='form-control CWeight check' placeholder='【权重系数】' onkeyup='this.value=this.value.replace(/[^0-9\.]/g,&quot;&quot;)'>"+
+				"</div>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<input id ='shiyan_expect' name ='shiyan_expect' type='text' class='form-control' placeholder='Enter ...'>"+
+				"</div>"+
+				"<div class='col-md-2' align='pull-left'>"+
+					"<button id ='GDel" +g +"' value ='" +g +"' type='button' class='btn btn-default GDel'><i class='fa fa-trash-o'></i> Delete</button>"+
+				"</div>"+
+			"</div>"
+		);
+			
+		$("#GDel"+g).click(function(){
+			$(this).parent().parent().remove();
+			var b = $(this).val(); //获取该行数
+			GArr[b-1]=0;
+			if(GArr[b]!=0){
+				for(var i=b-1; i<$("#SHIYAN_num").val(); i++){
+					GArr[i]=GArr[i+1];
+					$("#GDel"+(i+2)).val(i+1);
+					$("#Grow"+(i+2)).find('.shiyan').attr("name", "shiyan_cm_select"+(i+1));
+					$("#Grow"+(i+2)).attr("id","Grow"+(i+1));
+					$("#GDel"+(i+2)).attr("id","GDel"+(i+1));
+				}
+			}
+			g--;
+			$("#SHIYAN_num").val(g);
+		});
+		
+		$(".shiyan").select2({
+			editable: false,
+			placeholder: "    【考核模块】"
+		});
+	});
+
+	//添加作业
+	$("#addZYreach").click(function(){
+		AArr[m]=1;
+		m++;
+		$("#ZUOYE_num").val(m);
+		$("#ZYreach_list").append(
+			"<div id ='ZYrow" +m +"' class ='row'>"+
+			"<input id ='zuoye_level1' name ='zuoye_level1' type='hidden' class='form-control' value='" +m +"'>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<input id ='zuoye_intro' name ='zuoye_intro' type='text' class='form-control' placeholder='作业'>"+
+				"</div>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<select name ='zuoye_cm_select" +m +"' multiple='multiple' class='form-control ZuoYeAdd check' style='width: 100%; height: 34px;'>"+
+						"<#list cmList as cm>"+
+							"<option value='${cm.cm_order}'>${cm.cm_order}：${cm.cm_name}</option>"+
+						"</#list>"+
+					"</select>"+
+				"</div>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<input name ='zuoye_CWeight' type ='text' class='form-control CWeight check' placeholder='【权重系数】' onkeyup='this.value=this.value.replace(/[^0-9\.]/g,&quot;&quot;)'>"+
+				"</div>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<input id ='zuoye_expect' name ='zuoye_expect' type='text' class='form-control' placeholder='Enter ...'>"+
+				"</div>"+								
+				"<div class='col-md-1' align='pull-left'>"+
+					"<button id ='ADel" +m +"' value ='" +m +"' type='button' class='btn btn-default ADel'><i class='fa fa-trash-o'></i> Delete</button>"+
+				"</div>"+
+			"</div>"
+		);
+			
+		$("#ADel"+m).click(function(){
+			$(this).parent().parent().remove();
+			var b = $(this).val(); //获取该行数
+			AArr[b-1]=0;
+			if(AArr[b]!=0){
+				for(var i=b-1; i<$("#ZUOYE_num").val(); i++){
+					AArr[i]=AArr[i+1];
+					$("#ADel"+(i+2)).val(i+1);
+					$("#ZYrow"+(i+2)).find('.ZuoYeAdd').attr("name", "zuoye_cm_select"+(i+1));
+					$("#ZYrow"+(i+2)).attr("id","ZYrow"+(i+1));
+					$("#ADel"+(i+2)).attr("id","ADel"+(i+1));
+				}
+			}
+			m--;
+			$("#ZUOYE_num").val(m--);
+		});
+		
+		$(".ZuoYeAdd").select2({
+			editable: false,
+			placeholder: "    【考核模块】"
+		});
+
+	});
+	
+	//添加考察
+	$("#addKCreach").click(function(){
+		BArr[n]=1;
+		n++;
+		$("#KAOCHA_num").val(n);
+		$("#KCreach_list").append(
+			"<div id ='KCrow" +n +"' class ='row'>"+
+			"<input id ='kaocha_level1' name ='kaocha_level1' type='hidden' class='form-control' value='" + n+ "'>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<input id ='kaocha_intro' name ='kaocha_intro' type='text' class='form-control' placeholder='考察名称'>"+
+				"</div>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<select name ='kaocha_cm_select" +n +"' multiple='multiple' class='form-control KaoChaAdd check' style='width: 100%; height: 34px;'>"+
+						"<#list cmList as cm>"+
+							"<option value='${cm.cm_order}'>${cm.cm_order}：${cm.cm_name}</option>"+
+						"</#list>"+
+					"</select>"+
+				"</div>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<input name ='kaocha_CWeight' type ='text' class='form-control CWeight check' placeholder='【权重系数】' onkeyup='this.value=this.value.replace(/[^0-9\.]/g,&quot;&quot;)'>"+
+				"</div>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<input id ='kaocha_expect' name ='kaocha_expect' type='text' class='form-control' placeholder='Enter ...'>"+
+				"</div>"+								
+				"<div class='col-md-1' align='pull-left'>"+
+					"<button id ='BDel" +n +"' value ='" +n +"' type='button' class='btn btn-default BDel'><i class='fa fa-trash-o'></i> Delete</button>"+
+				"</div>"+
+			"</div>"
+		);
+			
+		$("#BDel"+n).click(function(){
+			$(this).parent().parent().remove();
+			var b = $(this).val(); //获取该行数
+			BArr[b-1]=0;
+			if(BArr[b]!=0){
+				for(var i=b-1; i<$("#KAOCHA_num").val(); i++){
+					BArr[i]=BArr[i+1];
+					$("#BDel"+(i+2)).val(i+1);
+					$("#KCrow"+(i+2)).find('.KaoChaAdd').attr("name", "kaocha_cm_select"+(i+1));
+					$("#KCrow"+(i+2)).attr("id","KCrow"+(i+1));
+					$("#BDel"+(i+2)).attr("id","BDel"+(i+1));
+				}
+			}
+			n--;
+			$("#KAOCHA_num").val(n--);
+		});
+		
+		$(".KaoChaAdd").select2({
+			editable: false,
+			placeholder: "    【考核模块】"
+		});
+
+	});
+	
+	//添加其他
+	$("#addQTreach").click(function(){
+		DArr[p]=1;
+		p++;
+		$("#QITA_num").val(p);
+		$("#QTreach_list").append(
+			"<div id ='QTrow" +p +"' class ='row'>"+
+			"<input id ='qita_level1' name ='qita_level1' type='hidden' class='form-control' value='" +p +"'>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<input id ='qita_intro' name ='qita_intro' type='text' class='form-control' placeholder='其他考察方式'>"+
+				"</div>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<select name ='qita_cm_select" +p +"' multiple='multiple' class='form-control QiTaAdd check' style='width: 100%; height: 34px;'>"+
+						"<#list cmList as cm>"+
+							"<option value='${cm.cm_order}'>${cm.cm_order}：${cm.cm_name}</option>"+
+						"</#list>"+
+					"</select>"+
+				"</div>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<input name ='qita_CWeight' type ='text' class='form-control CWeight check' placeholder='【权重系数】' onkeyup='this.value=this.value.replace(/[^0-9\.]/g,&quot;&quot;)'>"+
+				"</div>"+
+				"<div class ='col-md-2 form-group'>"+
+					"<input id ='qita_expect' name ='qita_expect' type='text' class='form-control' placeholder='Enter ...'>"+
+				"</div>"+
+				"<div class='col-md-1' align='pull-left'>"+
+					"<button id ='DDel" +p +"' value ='" +p +"' type='button' class='btn btn-default DDel'><i class='fa fa-trash-o'></i> Delete</button>"+
+				"</div>"+
+			"</div>"
+		);
+			
+		$("#DDel"+p).click(function(){
+			$(this).parent().parent().remove();
+			var b = $(this).val(); //获取该行数
+			DArr[b-1]=0;
+			if(DArr[b]!=0){
+				for(var i=b-1; i<$("#QITA_num").val(); i++){
+					DArr[i]=DArr[i+1];
+					$("#DDel"+(i+2)).val(i+1);
+					$("#QTrow"+(i+2)).find('.QiTaAdd').attr("name", "qita_cm_select"+(i+1));
+					$("#QTrow"+(i+2)).attr("id","QTrow"+(i+1));
+					$("#DDel"+(i+2)).attr("id","DDel"+(i+1));
+				}
+			}
+			p--;
+			$("#QITA_num").val(p--);
+		});
+		
+		$(".QiTaAdd").select2({
+			editable: false,
+			placeholder: "    【考核模块】"
+		});
+
+	});
+	
+	
+});
+</script>
+
+<!-- Submit Check -->
+<script>
+function submitCheck(v){
+    var status = 1;
+    $(".check").each(function(){
+		if($(this).val()==""||$(this).val()==null){
+			status =0;
+		}
+	});
+	if(status!=1){
+		alert("您有关键项未填选，请再次检查！"); return false;
+	}
+	if(v==0){
+		return confirm("请再次确认信息填写无误");
+	}
+	else{
+		return confirm("即将生成表格！确定现在提交？");
+	}
+}
+</script>
+</body>
+</html>

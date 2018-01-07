@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>OBE课程管理网站</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="../AdminLTE-master/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../AdminLTE-master/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="../AdminLTE-master/dist/css/skins/_all-skins.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/iCheck/flat/blue.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/datatables/dataTables.bootstrap.css">
+  <!-- Date Picker -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/datepicker/datepicker3.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/daterangepicker/daterangepicker-bs3.css">
+  <!-- bootstrap wysihtml5 - text editor -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="../AdminLTE-master/plugins/select2/css/select2.min.css">
+
+
+  <!-- 弹窗效果css文件 -->
+  <link rel="stylesheet" href="../AdminLTE-master/dist/mycss/popover.css" media="all">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <script type="text/javascript">
+		function myfun()
+		{
+    		alert("未开放，请稍等。");
+		}
+  </script>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  <header class="main-header">
+    <!-- Logo -->
+    <a href="../panel" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>O</b>BE</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>Obe</b>Manage</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="../AdminLTE-master/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <span class="hidden-xs">${userInfo.userName}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header">
+                <img src="../AdminLTE-master/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                <p>
+                  ${userInfo.userName}
+                </p>
+              </li>
+             
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="../auth/profile" class="btn btn-default btn-flat">修改密码</a>
+                </div>
+                <div class="pull-right">
+                  <a href="../auth/userLogout" class="btn btn-default btn-flat">登出</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="../AdminLTE-master/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p>${userInfo.userName}</p>
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+      </div>
+      <!-- search form -->
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+      <!-- /.search form -->
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+	  
+      <ul class="sidebar-menu">
+        <li class="header">MAIN NAVIGATION</li>
+        <#if (userInfo.userType?number == 2)>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>教务科</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a class="J_menuItem" data-content="content-main" href="../jiaowuke/addUser"></i> 新建课程</a></li>
+            <li><a class="J_menuItem" data-content="content-main" href="../jiaowuke/showAllCourse"></i> 查看现有课程</a></li>
+          </ul>
+        </li>
+		<#elseif (userInfo.userType?number == 3)>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>课程组长</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+			<li><a href="../program/myCourse"><i class="fa fa-circle-o"></i> 我的大纲</a></li>
+			<li><a href="../teacher/lessonList"><i class="fa fa-circle-o"></i> 我的课程</a></li>
+          </ul>
+        </li>
+		<#elseif (userInfo.userType?number == 4)>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>教师</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="../teacher/lessonList"><i class="fa fa-circle-o"></i> 我的课程</a></li>
+          </ul>
+        </li>
+		<#elseif (userInfo.userType?number == 1)>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>教务科</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a class="J_menuItem" data-content="content-main" href="../jiaowuke/addUser"></i> 新建课程</a></li>
+            <li><a class="J_menuItem" data-content="content-main" href="../jiaowuke/showAllCourse"></i> 查看现有课程</a></li>
+          </ul>
+        </li>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>课程组长</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+			<li><a class="J_menuItem" data-content="content-main" href="../program/myCourse"><i class="fa fa-circle-o"></i> 我的大纲</a></li>
+          </ul>
+        </li>
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>教师</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="../teacher/lessonList"><i class="fa fa-circle-o"></i> 我的课程</a></li>
+          </ul>
+        </li>
+		</#if>
+        <li class="header"></li>
+       
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+	<!-- Main content -->
+    <section class="content">
+		<!-- 课程目标(CO) -->
+		<!-- add -->
+		<div class="theme-popover CO-popover box box-primary">
+			<div class="theme-poptit CO-poptit box-header with-border">
+				<a href="javascript:;" title="关闭" class="CO-close close">×</a>
+				<h3 class="box-title">课程目标(CO)</h3>
+			</div>
+			<!-- /.box-header -->
+			
+			
+			<form role="form">
+				<div class="box-body">	
+					<div class="form-group">
+						<label>课程目标名</label>
+						<input id ="CO_name" type="text" class="form-control" placeholder="Enter ...">
+					</div>
+					<div class="form-group">
+						<label>课程目标详述</label>
+						<textarea id ="CO_intro" class="form-control" rows="4" placeholder="Enter ..."></textarea>
+					</div>
+				</div>
+				<!-- /.box-body -->
+
+				<div class="box-footer">
+					<div align = "center">
+						<button id ="addCO" onclick="return addCO1(0)" type="button" class="btn btn-primary addCO">确定</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- edit -->
+		<div class="theme-popover CO-edit-popover box box-primary">
+			<div class="theme-poptit CO-poptit box-header with-border">
+				<h3 class="box-title">课程目标(CO)</h3>
+			</div>
+			<!-- /.box-header -->
+			
+			
+			<form role="form">
+				<div class="box-body">	
+					<div class="form-group">
+						<label>课程目标名</label>
+						<input id ="CO_edit_name" type="text" class="form-control" placeholder="Enter ...">
+					</div>
+					<div class="form-group">
+						<label>课程目标详述</label>
+						<textarea id ="CO_edit_intro" class="form-control" rows="4" placeholder="Enter ..."></textarea>
+					</div>
+				</div>
+				<!-- /.box-body -->
+
+				<div class="box-footer">
+					<div align = "center">
+						<button id ="addCO" onclick="return addCO1(1)" type="button" class="btn btn-primary addCO">确定</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		
+		
+		<!-- 课程模块(CM) -->
+		<!-- add -->
+		<div class="theme-popover CM-popover box box-primary">
+			<div class="theme-poptit CM-poptit box-header with-border">
+				<a href="javascript:;" title="关闭" class="CM-close close">×</a>
+				<h3 class="box-title">课程模块(CM)</h3>
+			</div>
+			<!-- /.box-header -->
+			
+			
+			<form role="form">
+				<div class="box-body">
+					<div class="form-group">
+						<label>课程模块名</label>
+						<input id ="CM_name" type="text" class="form-control" placeholder="Enter ...">
+					</div>
+					<!-- textarea -->
+					<div class="form-group">
+						<label>课程模块详述</label>
+						<textarea id ="CM_intro" class="form-control" rows="4" placeholder="Enter ..."></textarea>
+					</div>
+				</div>
+				<!-- /.box-body -->
+
+				<div class="box-footer">
+					<div align = "center">
+						<button id ="addCM" onclick="return addCM1(0)" type="button" class="btn btn-primary addCM">确定</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- edit -->
+		<div class="theme-popover CM-edit-popover box box-primary">
+			<div class="theme-poptit CM-poptit box-header with-border">
+				<h3 class="box-title">课程模块(CM)</h3>
+			</div>
+			<!-- /.box-header -->
+						
+			<form role="form">
+				<div class="box-body">
+					<div class="form-group">
+						<label>课程模块名</label>
+						<input id ="CM_edit_name" type="text" class="form-control" placeholder="Enter ...">
+					</div>
+					<!-- textarea -->
+					<div class="form-group">
+						<label>课程模块详述</label>
+						<textarea id ="CM_edit_intro" class="form-control" rows="4" placeholder="Enter ..."></textarea>
+					</div>
+				</div>
+				<!-- /.box-body -->
+
+				<div class="box-footer">
+					<div align = "center">
+						<button id ="addCM" onclick="return addCM1(1)" type="button" class="btn btn-primary addCM">确定</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		
+		
+		<!-- mask -->
+		<div class="theme-popover-mask"></div>
+		
+		<!-- Custom Tabs (Pulled to the right) -->
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+			  <li id ="li1"><a href="getTeachers?pId=${pId}">课程组设置</a></li>
+              <li id ="li2"><a href="setBasicInformation?pId=${pId}">基本课程信息</a></li>
+              <li id ="li3" class="active"><a href="getCOandCM?pId=${pId}">co与cm设置关联</a></li>
+			  <li id ="li4"><a href="getEvaluate?pId=${pId}">达成度评价设置</a></li>
+			  <li class="pull-right header"><i class="fa fa-th"></i> 完善课程信息</li>
+            </ul>
+			
+			<div id="content" class="tab-content">
+				<form action='submitCOandCM_set' role='form' method='post'>
+					<input type="hidden" id="pId" name="pId" value="${pId}">
+					<div class='box box-default'>
+						<div class='box-header with-border'>
+							<i class='ion ion-clipboard'></i>
+							<h3 class='box-title'>课程目标（CO）</h3>
+							<button type='button' class='btn btn-primary pull-right CO-add'><i class ='fa fa-fw fa-plus'></i>丨添加课程目标</button>
+						</div>
+						<div class='box-body' id ='CO_box'>
+						<#if coList??>	
+							<input type='hidden' name='CO_num' id='CO_num' value='${coListNum}' />
+							<ul id ='CO_list' class='todo-list'>							
+									<#list coList as co>
+										<li id= "coli${co.co_order}">
+											<span name ='test' class='text'>CO${co.co_order}: ${co.co_name}</span>
+											<div class='tools'>
+												<i id='CO_edit${co.co_order}' class='fa fa-edit'></i>
+												<i id='CO_del${co.co_order}' class='fa fa-trash-o'></i>
+											</div>
+											<input type='hidden' id='COorder' name='COorder' value='${co.co_order}' />
+											<input type='hidden' id='COname' name='COname' value='${co.co_name}' />
+											<input type='hidden' id='COintro' name='COintro' value='${co.co_intro}' />
+										</li>
+									</#list>							
+							</ul>
+						<#else>
+							<input type='hidden' name='CO_num' id='CO_num' value='' />
+							<ul id ='CO_list' class='todo-list'></ul>	
+						</#if>
+						</div>
+					</div>
+					<div class='box box-default'>
+						<div class='box-header with-border'>
+							<i class='ion ion-clipboard'></i>
+							<h3 class='box-title'>课程模块（CM）</h3>
+							<button type='button' class='btn btn-primary pull-right CM-add'><i class ='fa fa-fw fa-plus'></i>丨添加课程模块</button>
+						</div>
+						<div class='box-body' id ='CM_box'>
+						<#if cmList??>
+							<input type='hidden' name='CM_num' id='CM_num' value='${cmListNum}' />
+							<ul id ='CM_list' class='todo-list'>								
+									<#list cmList as cm>
+										<li id= "cmli${cm.cm_order}">
+											<span name ='test' class='text'>CM${cm.cm_order}: ${cm.cm_name}</span>
+											<div class='tools'>
+												<i id='CM_edit${cm.cm_order}' class='fa fa-edit'></i>
+												<i id='CM_del${cm.cm_order}' class='fa fa-trash-o'></i>
+											</div>
+											<input type='hidden' id='CMorder' name='CMorder' value='${cm.cm_order}' />
+											<input type='hidden' id='CMname' name='CMname' value='${cm.cm_name}' />
+											<input type='hidden' id='CMintro' name='CMintro' value='${cm.cm_intro}' />
+										</li>
+									</#list>							
+							</ul>
+						<#else>
+							<input type='hidden' name='CM_num' id='CM_num' value='' />
+							<ul id ='CM_list' class='todo-list'></ul>
+						</#if>
+						</div>
+					</div>
+					<div class='box box-default'>
+						<div class='box-header with-border'>
+							<i class='ion ion-clipboard'></i>
+							<h3 class='box-title'>指标关联</h3>
+							<button id ='addRel' type='button' class='btn btn-primary pull-right'><i class ='fa fa-fw fa-plus'></i>丨添加指标关联</button>
+						</div>
+						<div class='box-body' id ='rel_list'>
+							<#if relList??>
+								<input type='hidden' name='rel_num' id='rel_num' value='${relListNum}' />
+								<#list relList as r>
+									<div id='Rrow${r_index+1}' class='row'>
+										<div class='col-md-2 form-group'>
+											<select name ='PO' class='form-control PO check' style='width: 100%; height: 100%;'>
+												<option value= '0' disabled selected style='display:none;'>培养目标</option>
+												<#list poList as p>
+													<option value= ${p.level1} 
+														<#if r.po_id==p.level1>
+															selected
+														</#if>
+													>PO${p.level1}: ${p.content}</option>
+												</#list>
+											</select>
+										</div>
+										<div class='col-md-2 form-group'>
+											<select name ='GR' class='form-control GR check' style='width: 100%; height: 100%;'>
+												<option value='0' disabled selected style='display:none;'>毕业要求</option>
+												<#list grList as g>
+													<option value= ${g.level1}
+														<#if r.gr_id==g.level1>
+															selected
+														</#if>
+													>GR${g.level1}：${g.content}</option>
+												</#list>
+											</select>
+										</div>
+										<div class='col-md-3 form-group'>
+											<select name ='CO' id ='CO${r_index+1}' class='form-control CO check' style='width: 100%; height: 100%;'>
+												<option value='0' disabled selected style='display:none;'>课程目标</option>
+												<#list coList as c>
+													<option value= ${c.co_order}
+														<#if r.co_id==c.co_order>
+															selected
+														</#if>
+													>CO${c.co_order}：${c.co_name}</option>
+												</#list>
+											</select>
+										</div>
+										<div class='col-md-3 form-group'>
+											<select name ='CM' id ='CM${r_index+1}' class='form-control CM check' style='width: 100%; height: 100%;'>
+												<option value='0' disabled selected style='display:none;'>课程模块</option>
+												<#list cmList as c>
+													<option value= ${c.cm_order}
+														<#if r.cm_id==c.cm_order>
+															selected
+														</#if>
+													>CM${c.cm_order}：${c.cm_name}</option>
+												</#list>
+											</select>
+										</div>		
+										<div class='col-md-2' align='pull-left'>
+											<button id ='relDel${r_index+1}' type='button' class='btn btn-default del_rel'><i class='fa fa-trash-o'></i> Delete</button>
+										</div>
+									</div>
+								</#list>
+							<#else>
+								<input type='hidden' name='rel_num' id='rel_num' value='' />
+							</#if>
+						</div>
+						<div class='box-footer'>
+							<div align='center'>
+								<button name ="submit" onclick ="return COandCMsubmitCheck(0)" value ="save" type="submit" class="btn btn-block btn-primary btn-lg" style="width:200px;height:50px;">保存</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+            <!-- /.tab-content -->
+          </div>
+          <!-- nav-tabs-custom -->
+
+    </section>
+	<!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+       <b>Version</b> 1.0.0
+    </div>
+  </footer>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 2.2.3 -->
+<script src="../AdminLTE-master/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Select2 -->
+<script src="../AdminLTE-master/plugins/select2/js/select2.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="../AdminLTE-master/dist/js/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.6 -->
+<script src="../AdminLTE-master/bootstrap/js/bootstrap.min.js"></script>
+<!-- Sparkline -->
+<script src="../AdminLTE-master/plugins/sparkline/jquery.sparkline.min.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="../AdminLTE-master/plugins/knob/jquery.knob.js"></script>
+<!-- datepicker -->
+<script src="../AdminLTE-master/plugins/datepicker/bootstrap-datepicker.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="../AdminLTE-master/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<!-- Slimscroll -->
+<script src="../AdminLTE-master/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="../AdminLTE-master/plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="../AdminLTE-master/dist/js/app.min.js"></script>
+
+<!-- Page Script -->
+<script>
+var r =0; //rel_num
+var j =0; //CO_num
+var k =0; //CM_num
+
+var CO_name_arr =new Array(); //CO name Array
+var CO_list_arr =new Array(); //CO status Array
+var CM_name_arr =new Array(); //CM name Array
+var CM_list_arr =new Array(); //CM status Array
+var Rel_list_arr = new Array(); //Rel status Array
+	
+for(var i=0; i<20; i++){
+	CO_list_arr[i] = 0;
+	CM_list_arr[i] = 0;
+	Rel_list_arr[i] = 0;
+}
+	
+$(function(){
+
+	//CO预设
+	if($("#CO_num").val()!=""){
+		j=$("#CO_num").val();
+		for(var i=0; i<j; i++){
+			CO_list_arr[i] = 1;
+			CO_name_arr[i] = $("#coli"+(i+1)).children("#COname").val();
+			//编辑
+			$("#CO_edit"+(i+1)).click(function(){
+				$("#CO_edit_name").val($(this).parent().parent().children("#COname").val());
+				$("#CO_edit_intro").val($(this).parent().parent().children("#COintro").val());
+				$('.theme-popover-mask').fadeIn(100);
+				$('.CO-edit-popover').slideDown(200);
+				CO_list_arr[$(this).parent().parent().children("#COorder").val()-1]=0;
+				CO_name_arr[$(this).parent().parent().children("#COorder").val()-1]="";
+				j--;
+				$("#CO_num").val(j);
+				COandCM_select(); //更新rel中CO与CM选项框
+				$(this).parent().parent().remove();
+			});
+			
+			//删除
+			$("#CO_del"+(i+1)).click(function(){
+				var c_order = $(this).parent().parent().children("#COorder").val()-1; //获取该行数-1 
+				//将该项数列对应项清空
+				CO_list_arr[c_order]=0; 
+				CO_name_arr[c_order]="";
+				//检查下一项是否有值，若有，依次向前递进一位
+				if(CO_list_arr[c_order+1]!=0){
+					for(var num =c_order; num<$("#CO_num").val(); num++){
+						CO_list_arr[num]=CO_list_arr[num+1];
+						CO_name_arr[num]=CO_name_arr[num+1];
+						$("#CO_edit"+(num+2)).attr("id","CO_edit"+(num+1));
+						$("#CO_del"+(num+2)).attr("id","CO_del"+(num+1));
+						$("#coli"+(num+2)).find('#COorder').val(num+1);
+						$("#coli"+(num+2)).find('.text').text("CO"+ (num+1) + ": " +$('#coli'+(num+2)).find('#COname').val());
+						$("#coli"+(num+2)).attr("id","coli"+(num+1));
+					}
+				}
+				j--;
+				$("#CO_num").val(j);
+				COandCM_select(); //更新rel中CO与CM选项框
+				$(this).parent().parent().remove();
+			});
+		}
+	}
+	else{
+		$("#CO_num").val(j);
+	}
+
+	//CM预设
+	if($("#CM_num").val()!=""){
+		k=$("#CM_num").val();
+		for(var i=0; i<k; i++){
+			CM_list_arr[i] = 1;
+			CM_name_arr[i] = $("#cmli"+(i+1)).children("#CMname").val();
+			//编辑
+			$("#CM_edit"+(i+1)).click(function(){
+				$("#CM_edit_name").val($(this).parent().parent().children("#CMname").val());
+				$("#CM_edit_intro").val($(this).parent().parent().children("#CMintro").val());
+				$('.theme-popover-mask').fadeIn(100);
+				$('.CM-edit-popover').slideDown(200);
+				CM_list_arr[$(this).parent().parent().children("#CMorder").val()-1]=0;
+				CM_name_arr[$(this).parent().parent().children("#CMorder").val()-1]="";
+				k--;
+				$("#CM_num").val(k);
+				COandCM_select(); //更新rel中CO与CM选项框
+				$(this).parent().parent().remove();
+			});
+			
+			//删除
+			$("#CM_del"+(i+1)).click(function(){
+				var m_order = $(this).parent().parent().children("#CMorder").val()-1; //获取该行数-1
+				//将该项数列对应项清空
+				CM_list_arr[m_order]=0;
+				CM_name_arr[m_order]="";
+				//检查下一项是否有值，若有，依次向前递进一位
+				if(CM_list_arr[m_order+1]!=0){
+					for(var num =m_order; num<$("#CM_num").val(); num++){
+						CM_list_arr[num]=CM_list_arr[num+1];
+						CM_name_arr[num]=CM_name_arr[num+1];
+						$("#CM_edit"+(num+2)).attr("id","CM_edit"+(num+1));
+						$("#CM_del"+(num+2)).attr("id","CM_del"+(num+1));
+						$("#cmli"+(num+2)).find('#CMorder').val(num+1);
+						$("#cmli"+(num+2)).find('.text').text("CM"+ (num+1) + ": " +$('#cmli'+(num+2)).find('#CMname').val());
+						$("#cmli"+(num+2)).attr("id","cmli"+(num+1));
+					}
+				}
+				k--;
+				$("#CM_num").val(k);
+				COandCM_select(); //更新rel中CO与CM选项框
+				$(this).parent().parent().remove();
+			});
+		}
+	}
+	else{
+		$("#CM_num").val(k);			
+	}
+	
+	//Rel预设
+	if($("#rel_num").val()!=""){
+		r=$("#rel_num").val();
+		for(var i=0; i<r; i++){
+			Rel_list_arr[i]=1;
+			
+			$("#relDel"+r).click(function(){
+				$(this).parent().parent().remove();
+				var b = $(this).val(); //获取该行数
+				Rel_list_arr[b-1]=0;
+				if(Rel_list_arr[b]!=0){
+					for(var i=b-1; i<$("#rel_num").val(); i++){
+						Rel_list_arr[i]=Rel_list_arr[i+1];
+						$("#CO"+(i+2)).attr("id","CO"+(i+1));
+						$("#CM"+(i+2)).attr("id","CM"+(i+1));
+						$("#relDel"+(i+2)).val(i+1);
+						$("#Rrow"+(i+2)).attr("id","Rrow"+(i+1));
+						$("#relDel"+(i+2)).attr("id","relDel"+(i+1));
+					}
+				}
+				r--;
+				$("#rel_num").val(r);
+			});
+		}
+	}
+	else{
+		$("#rel_num").val(r);
+	}
+		
+	//添加指标关联
+	$("#addRel").click(function(){
+		if($("#CO_num").val()==""||$("#CO_num").val()==0){
+			alert("请至少添加一项课程目标！"); return false;
+		}
+		else{
+			if($("#CO_list").children("li:last").children("#COorder").val()!=$("#CO_num").val()){
+				alert("课程目标模块间不允许有空缺，请填写完整！");return false;
+			}
+		}
+		if($("#CM_num").val()==""||$("#CM_num").val()==0){
+			alert("请至少添加一项课程模块！"); return false;
+		}
+		else{
+			if($("#CM_list").children("li:last").children("#CMorder").val()!=$("#CM_num").val()){
+				alert("课程模块间不允许有空缺，请填写完整！");return false;
+			}
+		}
+		Rel_list_arr[r]=1;
+		r++;
+		$("#rel_num").val(r);
+		$("#rel_list").append(
+			"<div id='Rrow" +r +"' class='row'>"+
+				"<div class='col-md-2 form-group'>"+
+					"<select name ='PO' id ='PO' class='form-control PO check' style='width: 100%; height: 100%;'>"+
+						"<option value= '0' disabled selected style='display:none;'>培养目标</option>"+
+						"<#list poList as p>"+ 
+							"<option value= ${p.level1}>PO${p.level1}: ${p.content}</option>"+
+						"</#list>"+
+					"</select>"+
+				"</div>"+
+				"<div class='col-md-2 form-group'>"+
+					"<select name ='GR' id ='GR' class='form-control GR check' style='width: 100%; height: 100%;'>"+
+						"<option value='0' disabled selected style='display:none;'>毕业要求</option>"+
+						"<#list grList as g>"+ 
+							"<option value= ${g.level1}>GR${g.level1}：${g.content}</option>"+
+						"</#list>"+
+					"</select>"+
+				"</div>"+
+				"<div class='col-md-3 form-group'>"+
+					"<select name ='CO' id ='CO" +r + "' class='form-control CO check' style='width: 100%; height: 100%;'>"+
+						"<option value='0' disabled selected style='display:none;'>课程目标</option>"+
+					"</select>"+
+				"</div>"+
+				"<div class='col-md-3 form-group'>"+
+					"<select name ='CM' id ='CM" +r + "' class='form-control CM check' style='width: 100%; height: 100%;'>"+
+						"<option value='0' disabled selected style='display:none;'>课程模块</option>"+
+					"</select>"+
+				"</div>"+		
+				"<div class='col-md-2' align='pull-left'>"+
+					"<button id ='relDel" +r + "' value='" +r +"' type='button' class='btn btn-default'><i class='fa fa-trash-o'></i> Delete</button>"+
+				"</div>"+
+			"</div>"
+		);
+
+		for(var i=1; i<=CO_name_arr.length; i++)
+		{
+			if(CO_name_arr[i-1]!=""&&CO_name_arr[i-1]!=null)
+			{
+				$("#CO"+r).append("<option value = '"+ i + "'>CO"+i+":"+CO_name_arr[i-1]+"</option>");
+			}
+		}
+		for(var i=1; i<=CM_name_arr.length; i++)
+		{
+			if(CM_name_arr[i-1]!=""&&CM_name_arr[i-1]!=null)
+			{
+				$("#CM"+r).append("<option value = '"+ i + "'>CM"+i+":"+CM_name_arr[i-1]+"</option>");
+			}
+		}
+			
+		$("#relDel"+r).click(function(){
+			$(this).parent().parent().remove();
+			var b = $(this).val(); //获取该行数
+			Rel_list_arr[b-1]=0;
+			if(Rel_list_arr[b]!=0){
+				for(var i=b-1; i<$("#rel_num").val(); i++){
+					Rel_list_arr[i]=Rel_list_arr[i+1];
+					$("#CO"+(i+2)).attr("id","CO"+(i+1));
+					$("#CM"+(i+2)).attr("id","CM"+(i+1));
+					$("#relDel"+(i+2)).val(i+1);
+					$("#Rrow"+(i+2)).attr("id","Rrow"+(i+1));
+					$("#relDel"+(i+2)).attr("id","relDel"+(i+1));
+				}
+			}
+			r--;
+			$("#rel_num").val(r);
+		});
+	});
+});
+
+function addCO1(v){
+	//检查输入是否为空
+	if(v==0){
+		if($("#CO_name").val()==""||$("#CO_intro").val()==""){
+			alert("课程目标名与其内容不能为空，请补充完整！");
+			return false;
+		}
+	}
+	else{
+		if($("#CO_edit_name").val()==""||$("#CO_edit_intro").val()==""){
+			alert("课程目标名与其内容不能为空，请补充完整！");
+			return false;
+		}
+	}
+
+	for(var i =0; i<20; i++){
+		if(CO_list_arr[i]==0){
+			j++;
+			$("#CO_num").val(j);
+			if(i==0){
+				if(v==1){
+					$("#CO_list").prepend(
+						"<li id= 'coli1'>"+
+							"<span name='test' class='text'>CO1: "+$("#CO_edit_name").val()+"</span>"+
+							"<div class='tools'>"+
+								"<i id='CO_edit"+1+"' class='fa fa-edit'></i>"+
+								"<i id='CO_del"+1+"' class='fa fa-trash-o'></i>"+
+							"</div>"+
+							"<input type='hidden' id='COorder' name='COorder' value='" +1 +"' />"+
+							"<input type='hidden' id='COname' name='COname' value='" +$("#CO_edit_name").val()+"' />"+
+							"<input type='hidden' id='COintro' name='COintro' value='" +$("#CO_edit_intro").val()+"' />"+
+						"</li>"
+					);
+				}
+				else{
+					$("#CO_list").prepend(
+						"<li id= 'coli1'>"+
+							"<span name ='test' class='text'>CO1: "+$("#CO_name").val()+"</span>"+
+							"<div class='tools'>"+
+								"<i id='CO_edit"+1+"' class='fa fa-edit'></i>"+
+								"<i id='CO_del"+1+"' class='fa fa-trash-o'></i>"+
+							"</div>"+
+							"<input type='hidden' id='COorder' name='COorder' value='" +1 +"' />"+
+							"<input type='hidden' id='COname' name='COname' value='" +$("#CO_name").val()+"' />"+
+							"<input type='hidden' id='COintro' name='COintro' value='" +$("#CO_intro").val()+"' />"+
+						"</li>"
+					);
+				}
+			}
+			else{
+				var b =i+1;
+				if(v==1){
+					$("#coli"+i).after(
+						"<li id= 'coli"+ b+ "'>"+
+							"<span name ='test' class='text'>CO"+b+": "+$("#CO_edit_name").val()+"</span>"+
+							"<div class='tools'>"+
+								"<i id='CO_edit"+b+"' class='fa fa-edit'></i>"+
+								"<i id='CO_del"+b+"' class='fa fa-trash-o'></i>"+
+							"</div>"+
+							"<input type='hidden' id='COorder' name='COorder' value='" +b +"' />"+
+							"<input type='hidden' id='COname' name='COname' value='" +$("#CO_edit_name").val()+"' />"+
+							"<input type='hidden' id='COintro' name='COintro' value='" +$("#CO_edit_intro").val()+"' />"+
+						"</li>"
+					);
+				}
+				else{
+					$("#coli"+i).after(
+						"<li id= 'coli"+ b+ "'>"+
+							"<span name ='test' class='text'>CO"+b+": "+$("#CO_name").val()+"</span>"+
+							"<div class='tools'>"+
+								"<i id='CO_edit"+b+"' class='fa fa-edit'></i>"+
+								"<i id='CO_del"+b+"' class='fa fa-trash-o'></i>"+
+							"</div>"+
+							"<input type='hidden' id='COorder' name='COorder' value='" +b +"' />"+
+							"<input type='hidden' id='COname' name='COname' value='" +$("#CO_name").val()+"' />"+
+							"<input type='hidden' id='COintro' name='COintro' value='" +$("#CO_intro").val()+"' />"+
+						"</li>"
+					);
+				}
+			}
+			
+			CO_list_arr[i]=1;
+			if(v==1){
+				CO_name_arr[i]=$("#CO_edit_name").val();
+			}
+			else{
+				CO_name_arr[i]=$("#CO_name").val();
+			}
+			
+				
+			//编辑
+			$("#CO_edit"+(i+1)).click(function(){
+				$("#CO_edit_name").val($(this).parent().parent().children("#COname").val());
+				$("#CO_edit_intro").val($(this).parent().parent().children("#COintro").val());
+				$('.theme-popover-mask').fadeIn(100);
+				$('.CO-edit-popover').slideDown(200);
+				CO_list_arr[$(this).parent().parent().children("#COorder").val()-1]=0;
+				CO_name_arr[$(this).parent().parent().children("#COorder").val()-1]="";
+				j--;
+				$("#CO_num").val(j);
+				COandCM_select(); //更新rel中CO与CM选项框
+				$(this).parent().parent().remove();
+			});
+		
+			//删除
+			$("#CO_del"+(i+1)).click(function(){
+			    var c_order = $(this).parent().parent().children("#COorder").val()-1; //获取该行数-1 
+				//将该项数列对应项清空
+				CO_list_arr[c_order]=0; 
+				CO_name_arr[c_order]="";
+				//检查下一项是否有值，若有，依次向前递进一位
+				if(CO_list_arr[c_order+1]!=0){
+					for(var num =c_order; num<$("#CO_num").val(); num++){
+						CO_list_arr[num]=CO_list_arr[num+1];
+						CO_name_arr[num]=CO_name_arr[num+1];
+						$("#CO_edit"+(num+2)).attr("id","CO_edit"+(num+1));
+						$("#CO_del"+(num+2)).attr("id","CO_del"+(num+1));
+						$("#coli"+(num+2)).find('#COorder').val(num+1);
+						$("#coli"+(num+2)).find('.text').text("CO"+ (num+1) + ": " +$('#coli'+(num+2)).find('#COname').val());
+						$("#coli"+(num+2)).attr("id","coli"+(num+1));
+					}
+				}
+				j--;
+				$("#CO_num").val(j);
+				COandCM_select(); //更新rel中CO与CM选项框
+				$(this).parent().parent().remove();			
+			});
+			break;
+		}
+
+	}
+	
+	COandCM_select(); //更新rel中CO与CM选项框
+	
+	//关闭弹窗效果并清空输入框数据
+	$('.theme-popover-mask').fadeOut(100);
+	if(v==1){
+		$("#CO_edit_name").val(null);
+		$("#CO_edit_intro").val(null);
+		$('.CO-edit-popover').slideUp(200);
+	}
+	else{
+		$("#CO_name").val(null);
+		$("#CO_intro").val(null);
+		$('.CO-popover').slideUp(200);
+	}
+}
+
+function addCM1(v){
+	if(v==0){
+		if($("#CM_name").val()==""||$("#CM_intro").val()==""){
+			alert("课程模块名与其内容不能为空，请补充完整！");
+			return false;
+		}
+	}
+	else{
+		if($("#CM_edit_name").val()==""||$("#CM_edit_intro").val()==""){
+			alert("课程模块名与其内容不能为空，请补充完整！");
+			return false;
+		}
+	}
+
+	for(var i =0; i<20; i++){
+		if(CM_list_arr[i]==0){
+			k++;
+			$("#CM_num").val(k);
+			if(i==0){
+				if(v==1){
+					$("#CM_list").prepend(
+						"<li id= 'cmli1'>"+
+							"<span name ='test' class='text'>CM1: "+$("#CM_edit_name").val()+"</span>"+
+							"<div class='tools'>"+
+								"<i id='CM_edit"+1+"' class='fa fa-edit'></i>"+
+								"<i id='CM_del"+1+"' class='fa fa-trash-o'></i>"+
+							"</div>"+
+							"<input type='hidden' id='CMorder' name='CMorder' value='" +1 +"' />"+
+							"<input type='hidden' id='CMname' name='CMname' value='" +$("#CM_edit_name").val()+"' />"+
+							"<input type='hidden' id='CMintro' name='CMintro' value='" +$("#CM_edit_intro").val()+"' />"+
+						"</li>"
+					);
+				}
+				else{
+					$("#CM_list").prepend(
+						"<li id= 'cmli1'>"+
+							"<span name ='test' class='text'>CM1: "+$("#CM_name").val()+"</span>"+
+							"<div class='tools'>"+
+								"<i id='CM_edit"+1+"' class='fa fa-edit'></i>"+
+								"<i id='CM_del"+1+"' class='fa fa-trash-o'></i>"+
+							"</div>"+
+							"<input type='hidden' id='CMorder' name='CMorder' value='" +1 +"' />"+
+							"<input type='hidden' id='CMname' name='CMname' value='" +$("#CM_name").val()+"' />"+
+							"<input type='hidden' id='CMintro' name='CMintro' value='" +$("#CM_intro").val()+"' />"+
+						"</li>"
+					);
+				}			
+			}
+			else{
+				var b =i+1;
+				if(v==1){
+					$("#cmli"+i).after(
+						"<li id= 'cmli"+ b+ "'>"+
+							"<span name ='test' class='text'>CM"+b+": "+$("#CM_edit_name").val()+"</span>"+
+							"<div class='tools'>"+
+								"<i id='CM_edit"+b+"' class='fa fa-edit'></i>"+
+								"<i id='CM_del"+b+"' class='fa fa-trash-o'></i>"+
+							"</div>"+
+							"<input type='hidden' id='CMorder' name='CMorder' value='" +b +"' />"+
+							"<input type='hidden' id='CMname' name='CMname' value='" +$("#CM_edit_name").val()+"' />"+
+							"<input type='hidden' id='CMintro' name='CMintro' value='" +$("#CM_edit_intro").val()+"' />"+
+						"</li>"
+					);
+				}
+				else{
+					$("#cmli"+i).after(
+						"<li id= 'cmli"+ b+ "'>"+
+							"<span name ='test' class='text'>CM"+b+": "+$("#CM_name").val()+"</span>"+
+							"<div class='tools'>"+
+								"<i id='CM_edit"+b+"' class='fa fa-edit'></i>"+
+								"<i id='CM_del"+b+"' class='fa fa-trash-o'></i>"+
+							"</div>"+
+							"<input type='hidden' id='CMorder' name='CMorder' value='" +b +"' />"+
+							"<input type='hidden' id='CMname' name='CMname' value='" +$("#CM_name").val()+"' />"+
+							"<input type='hidden' id='CMintro' name='CMintro' value='" +$("#CM_intro").val()+"' />"+
+						"</li>"
+					);
+				}
+			}
+			CM_list_arr[i]=1;
+			if(v==1){
+				CM_name_arr[i]=$("#CM_edit_name").val();
+			}
+			else{
+				CM_name_arr[i]=$("#CM_name").val();
+			}
+				
+			//编辑
+			$("#CM_edit"+(i+1)).click(function(){
+				$("#CM_edit_name").val($(this).parent().parent().children("#CMname").val());
+				$("#CM_edit_intro").val($(this).parent().parent().children("#CMintro").val());
+				$('.theme-popover-mask').fadeIn(100);
+				$('.CM-edit-popover').slideDown(200);
+				CM_list_arr[$(this).parent().parent().children("#CMorder").val()-1]=0;
+				CM_name_arr[$(this).parent().parent().children("#CMorder").val()-1]="";
+				k--;
+				$("#CM_num").val(k);
+				COandCM_select(); //更新rel中CO与CM选项框
+				$(this).parent().parent().remove();
+			});
+		
+			//删除
+			$("#CM_del"+(i+1)).click(function(){
+				var m_order = $(this).parent().parent().children("#CMorder").val()-1; //获取该行数-1
+				//将该项数列对应项清空
+				CM_list_arr[m_order]=0;
+				CM_name_arr[m_order]="";
+				//检查下一项是否有值，若有，依次向前递进一位
+				if(CM_list_arr[m_order+1]!=0){
+					for(var num =m_order; num<$("#CM_num").val(); num++){
+						CM_list_arr[num]=CM_list_arr[num+1];
+						CM_name_arr[num]=CM_name_arr[num+1];
+						$("#CM_edit"+(num+2)).attr("id","CM_edit"+(num+1));
+						$("#CM_del"+(num+2)).attr("id","CM_del"+(num+1));
+						$("#cmli"+(num+2)).find('#CMorder').val(num+1);
+						$("#cmli"+(num+2)).find('.text').text("CM"+ (num+1) + ": " +$('#cmli'+(num+2)).find('#CMname').val());
+						$("#cmli"+(num+2)).attr("id","cmli"+(num+1));
+					}
+				}
+				k--;
+				$("#CM_num").val(k);
+				COandCM_select(); //更新rel中CO与CM选项框
+				$(this).parent().parent().remove();
+			});
+			break;
+		}
+
+	}
+	
+	COandCM_select(); //更新rel中CO与CM选项框
+		
+	//关闭弹窗效果并清空输入框数据
+	$('.theme-popover-mask').fadeOut(100);
+	if(v==1){
+		$("#CM_edit_name").val(null);
+		$("#CM_edit_intro").val(null);
+		$('.CM-edit-popover').slideUp(200);
+	}
+	else{
+		$("#CM_name").val(null);
+		$("#CM_intro").val(null);
+		$('.CM-popover').slideUp(200);
+	}
+	
+}
+
+function COandCM_select(){
+	$(".CO").html("<option value='0' disabled selected style='display:none;'>课程目标</option>");
+	$(".CM").html("<option value='0' disabled selected style='display:none;'>课程模块</option>");
+	for(var i=1; i<=CO_name_arr.length; i++)
+	{
+		if(CO_name_arr[i-1]!=""&&CO_name_arr[i-1]!=null)
+		{
+			$(".CO").append("<option value = '"+ i + "'>CO"+i+":"+CO_name_arr[i-1]+"</option>");
+		}
+	}
+	for(var i=1; i<=CM_name_arr.length; i++)
+	{
+		if(CM_name_arr[i-1]!=""&&CM_name_arr[i-1]!=null)
+		{
+			$(".CM").append("<option value = '"+ i + "'>CM"+i+":"+CM_name_arr[i-1]+"</option>");
+		}
+	}
+}
+</script>
+
+<!--弹窗效果控制-->
+<script>
+	$('.CO-add').click(function(){
+		$('.theme-popover-mask').fadeIn(100);
+		$('.CO-popover').slideDown(200);
+	})
+
+	$('.CO-poptit .CO-close').click(function(){
+		$("#CO_name").val(null);
+		$("#CO_intro").val(null);
+		$('.theme-popover-mask').fadeOut(100);
+		$('.CO-popover').slideUp(200);
+	})
+
+	$('.CM-add').click(function(){
+		$('.theme-popover-mask').fadeIn(100);
+		$('.CM-popover').slideDown(200);
+	})
+		
+	$('.CM-poptit .CM-close').click(function(){			
+		$("#CM_name").val(null);
+		$("#CM_intro").val(null);
+		$('.theme-popover-mask').fadeOut(100);
+		$('.CM-popover').slideUp(200);
+	})
+</script>
+
+<!--submitCheck-->
+<script type="text/javascript">
+function COandCMsubmitCheck(v){ 
+	if($("#rel_num").val()=="0"||$("#rel_num").val()==0)
+	{
+		alert("请至少添加一项指标关联");return false;
+	}
+	if($("#CO_num").val()==""||$("#CO_num").val()==0){
+		alert("请至少添加一项课程目标！")
+	}
+	else{
+		if($("#CO_list").children("li:last").children("#COorder").val()!=$("#CO_num").val()){
+			alert("课程目标模块间不允许有空缺，请填写完整！");return false;
+		}
+	}
+	if($("#CM_num").val()==""||$("#CM_num").val()==0){
+		alert("请至少添加一项课程模块！")
+	}
+	else{
+		if($("#CM_list").children("li:last").children("#CMorder").val()!=$("#CM_num").val()){
+			alert("课程模块间不允许有空缺，请填写完整！");return false;
+		}
+	}
+	
+	var status =1;
+	$(".check").each(function(){
+		if($(this).val()==""||$(this).val()==null){
+			status =0;
+		}
+	});
+	if(status!=1){
+		alert("您有关键项未填选，请再次检查！"); return false;
+	}
+	
+	if(v==0){
+		return confirm("请再次确认信息填写无误");
+	}
+	else{
+		return confirm("提价审核后将无法修改，确定现在提交？");
+	}
+}
+</script>
+
+</body>
+</html>
+

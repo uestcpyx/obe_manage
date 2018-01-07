@@ -1,4 +1,5 @@
-jdbcUrl = jdbc:mysql://127.0.0.1:1000/obe_manage?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+#jdbcUrl = jdbc:mysql://127.0.0.1:1000/obe_manage?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+jdbcUrl = jdbc:mysql://127.0.0.1:3306/obe_manage?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
 user = pyx
 #password =kjlhDB20160430!
 password =pyx123123

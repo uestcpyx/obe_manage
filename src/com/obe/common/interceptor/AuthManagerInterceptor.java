@@ -19,7 +19,7 @@ public class AuthManagerInterceptor implements Interceptor{
 		System.out.println("before invoking");
 		Controller c = inv.getController();
 		HashMap<String, String> sessionInfo=c.getSessionAttr(c.getSession().getId());
-		if (sessionInfo!=null&&sessionInfo.get("type").equals("1")) {
+		if (sessionInfo!=null&&(sessionInfo.get("type").equals("1")||sessionInfo.get("type").equals("2")||sessionInfo.get("type").equals("3")||sessionInfo.get("type").equals("4"))) {
 			inv.invoke();
 			System.out.println("after invoking");
 		}

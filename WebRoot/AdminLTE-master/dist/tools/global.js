@@ -1,6 +1,7 @@
-G_HOST="http://localhost:8080/";
-//G_HOST="http://121.42.196.94:8080/";
-G_PROJECT_NAME="obe_manage/";
+//G_HOST="http://localhost:8080/";
+G_HOST="http://www.is.uestc.edu.cn/";
+//G_PROJECT_NAME="obe_manage/";
+G_PROJECT_NAME="obe/";
 G_SELECTED_USER=0;//当前选定用户
 G_MAX_MSGID=0;//消息最大ID
 G_RECORDING=0;//是否在录音状态flag

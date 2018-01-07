@@ -1,5 +1,7 @@
 package com.obe.common.config;
 
+import java.io.File;
+
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
 import com.jfinal.config.Interceptors;
@@ -12,8 +14,13 @@ import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
 import com.obe.auth.AuthController;
 import com.obe.common.model._MappingKit;
+import com.obe.common.model.rel_program_teacher;
+import com.obe.common.model.teaching_program;
+import com.obe.exam.ExamController;
 import com.obe.index.IndexController;
+import com.obe.jiaowuke.JiaowukeController;
 import com.obe.program.ProgramController;
+import com.obe.teacher.TeacherController;
 
 
 /**
@@ -28,6 +35,13 @@ public class DemoConfig extends JFinalConfig {
 		// 加载少量必要配置，随后可用PropKit.get(...)获取值
 		PropKit.use("dbConfig.txt");
 		me.setDevMode(PropKit.getBoolean("devMode", false));
+		
+		String baseDownloadPath ="D:"+File.separator+"Program Files"+File.separator+"Apache Software Foundation"+
+				File.separator+"webapps"+File.separator+"fileserver"+File.separator+"download";
+		String baseUploadPath ="D:"+File.separator+"Program Files"+File.separator+"Apache Software Foundation"+
+				File.separator+"webapps"+File.separator+"fileserver"+File.separator+"upload";
+		me.setBaseDownloadPath(baseDownloadPath);
+		me.setBaseUploadPath(baseUploadPath);
 	}
 	
 	/**
@@ -36,7 +50,10 @@ public class DemoConfig extends JFinalConfig {
 	public void configRoute(Routes me) {
 		me.add("/", IndexController.class, "/AdminLTE-master");	// 第三个参数为该Controller的视图存放路径
 		me.add("/auth", AuthController.class, "/AdminLTE-master");	
-		me.add("/program", ProgramController.class, "/AdminLTE-master/pages");
+		me.add("/program", ProgramController.class, "/AdminLTE-master/pages/course");
+		me.add("/jiaowuke", JiaowukeController.class, "/AdminLTE-master/pages/course");
+		me.add("/teacher", TeacherController.class, "/AdminLTE-master/pages/course");
+		me.add("/exam", ExamController.class, "/AdminLTE-master/pages/exam");
 	}
 	
 	public static C3p0Plugin createC3p0Plugin() {
@@ -57,6 +74,8 @@ public class DemoConfig extends JFinalConfig {
 		
 		// 所有配置在 MappingKit 中搞定
 		_MappingKit.mapping(arp);
+		arp.addMapping("rel_program_teacher", rel_program_teacher.class);
+		arp.addMapping("teaching_program", teaching_program.class);
 	}
 	
 	/**
